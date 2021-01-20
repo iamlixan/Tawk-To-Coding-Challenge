@@ -1,0 +1,108 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+apply from: 'dependencies.gradle'
+
+androidExtensions {
+    experimental = true
+}
+kapt {
+    correctErrorTypes = true
+}
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.lixan.fajardo.tawkentranceexam"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api Libs.appCompat
+    api Libs.constraintLayout
+    api Libs.supportDesign
+    api Libs.facebookShimmer
+
+    api Libs.retrofit
+    api Libs.retrofitGson
+    api Libs.retrofitRxJava2
+    api Libs.retrofitScalar
+
+    api Libs.okhttp
+    api Libs.okhttpLogging
+
+    api Libs.viewPager2
+
+    implementation Libs.kotlin
+
+    implementation Libs.rxKotlin
+
+    implementation Libs.rxAndroid
+
+    api Libs.rxbindingAndroidX
+    api Libs.rxbindingAndroidXCore
+    api Libs.rxbindingAndroidXAppCompat
+
+    api Libs.timber
+
+    api Libs.dagger
+    kapt Libs.daggerCompiler
+    kapt Libs.daggerProcessor
+    api Libs.daggerAndroid
+    api Libs.daggerSupport
+
+    api Libs.archExtensions
+    kapt Libs.archExtensionsCompiler
+
+    api Libs.coreKotlinX
+
+    api Libs.recyclerView
+
+    implementation Libs.lifecycleScope
+
+    implementation Libs.glide
+    kapt Libs.glideCompiler
+
+    api Libs.room
+    api Libs.roomRx
+    kapt Libs.roomCompiler
+
+    testImplementation TestLibs.junit
+    testImplementation TestLibs.testRunner
+    testImplementation TestLibs.espresso
+    testImplementation TestLibs.mockito
+    testImplementation TestLibs.archCoreTesting
+
+}

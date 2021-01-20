@@ -1,0 +1,144 @@
+ext {
+    def timberVersion = "4.7.1"
+    def retrofitVersion = "2.7.2"
+    def retrofitScalarVersion = "2.7.2"
+    def glideVersion = "4.10.0"
+    def daggerVersion = "2.20"
+    def junitVersion = "4.12"
+    def testRunnerVersion = "1.1.0"
+    def espressoVersion = "3.1.0"
+    def mockitoVersion = "2.25.1"
+    def rxAndroidVersion = "2.1.1"
+    def rxKotlinVersion = "2.3.0"
+    def lifecycleVersion = "2.2.0-alpha01"
+    def appCompatVersion = "1.1.0-alpha03"
+    def constraintLayoutVersion = "1.1.2"
+    def supportMaterialDesignVersion = "1.2.0-beta01"
+    def viewPager2Version = "1.0.0"
+    def kotlinVersion = "1.3.71"
+    def coreKtxVersion = "1.0.2"
+    def rxBindingXVersion = "3.0.0-alpha2"
+    def archCompVersion = "2.1.0"
+    def facebookShimmerVersion = "0.5.0"
+    def okhttpVersion = "4.4.0"
+
+    Libs = [
+            appCompat: [
+                    "androidx.appcompat:appcompat:$appCompatVersion"
+            ],
+            constraintLayout: [
+                    "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+            ],
+            supportDesign : [
+                    "com.google.android.material:material:$supportMaterialDesignVersion"
+            ],
+            facebookShimmer: [
+                    "com.facebook.shimmer:shimmer:$facebookShimmerVersion"
+            ],
+            retrofit: [
+                    "com.squareup.retrofit2:retrofit:$retrofitVersion"
+            ],
+            retrofitGson: [
+                    "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+            ],
+            retrofitScalar: [
+                    "com.squareup.retrofit2:converter-scalars:$retrofitScalarVersion"
+            ],
+            retrofitRxJava2: [
+                    "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+            ],
+            okhttp: [
+                    "com.squareup.okhttp3:okhttp:$okhttpVersion"
+            ],
+            okhttpLogging: [
+                    "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+            ],
+            viewPager2: [
+                    "androidx.viewpager2:viewpager2:$viewPager2Version"
+            ],
+            kotlin: [
+                    "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+            ],
+            rxKotlin: [
+                    "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+            ],
+            rxAndroid: [
+                    "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+            ],
+            rxbindingAndroidX: [
+                    "com.jakewharton.rxbinding3:rxbinding:$rxBindingXVersion"
+            ],
+            rxbindingAndroidXCore: [
+                    "com.jakewharton.rxbinding3:rxbinding-core:$rxBindingXVersion"
+            ],
+            rxbindingAndroidXAppCompat: [
+                    "com.jakewharton.rxbinding3:rxbinding-appcompat:$rxBindingXVersion"
+            ],
+            timber: [
+                    "com.jakewharton.timber:timber:$timberVersion"
+            ],
+            dagger: [
+                    "com.google.dagger:dagger:$daggerVersion"
+            ],
+            daggerCompiler: [
+                    "com.google.dagger:dagger-compiler:$daggerVersion"
+            ],
+            daggerProcessor: [
+                    "com.google.dagger:dagger-android-processor:$daggerVersion"
+            ],
+            daggerAndroid: [
+                    "com.google.dagger:dagger-android:$daggerVersion"
+            ],
+            daggerSupport: [
+                    "com.google.dagger:dagger-android-support:$daggerVersion"
+            ],
+            archExtensions: [
+                    "androidx.lifecycle:lifecycle-extensions:$archCompVersion"
+            ],
+            archExtensionsCompiler: [
+                    "androidx.lifecycle:lifecycle-compiler:$archCompVersion"
+            ],
+            coreKotlinX: [
+                    "androidx.core:core-ktx:$coreKtxVersion"
+            ],
+            recyclerView: [
+                    "androidx.recyclerview:recyclerview:$appCompatVersion"
+            ],
+            lifecycleScope: [
+                    "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+            ],
+            glide: [
+                    "com.github.bumptech.glide:glide:$glideVersion"
+            ],
+            glideCompiler: [
+                    "com.github.bumptech.glide:compiler:$glideVersion"
+            ],
+            room: [
+                    "androidx.room:room-runtime:$archCompVersion"
+            ],
+            roomRx: [
+                    "androidx.room:room-rxjava2:$archCompVersion"
+            ],
+            roomCompiler: [
+                    "androidx.room:room-compiler:$archCompVersion"
+            ]
+    ]
+
+    TestLibs = [
+            junit: [
+                    "junit:junit:$junitVersion"
+            ],
+            testRunner: [
+                    "androidx.test:runner:$testRunnerVersion"
+            ],
+            espresso: [
+                    "androidx.test.espresso:espresso-core:$espressoVersion"
+            ],
+            mockito: [
+                    "org.mockito:mockito-inline:$mockitoVersion"
+            ],
+            archCoreTesting: [
+                    "androidx.arch.core:core-testing:$archCompVersion"
+            ]
+    ]
+}
