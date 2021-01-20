@@ -28,8 +28,8 @@ abstract class BaseActivity<BINDING: ViewDataBinding>: AppCompatActivity(), HasS
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, getLayoutId())
         binding.lifecycleOwner = this

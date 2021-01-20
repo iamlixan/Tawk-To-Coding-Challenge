@@ -6,6 +6,7 @@ import com.lixan.fajardo.tawkentranceexam.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 
@@ -13,12 +14,13 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppModule::class,
-        AndroidInjectionModule::class,
+        AndroidSupportInjectionModule::class,
         ActivityBuilderModule::class,
         NetworkModule::class,
         SchedulerModule::class,
         ApiServiceModule::class,
-        RemoteRepositoryModule::class
+        RemoteRepositoryModule::class,
+        RepositoryModule::class
     ]
 )
 interface AppComponent {

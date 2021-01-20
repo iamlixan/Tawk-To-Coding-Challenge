@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Lazy
 import javax.inject.Inject
 
-class ViewModelFactory<VIEWMODEL : ViewModel> @Inject constructor(private val vm: Lazy<VIEWMODEL>) : ViewModelProvider.Factory {
+class ViewModelFactory<VM : ViewModel> @Inject constructor(private val vm: Lazy<VM>) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return vm.get() as T
