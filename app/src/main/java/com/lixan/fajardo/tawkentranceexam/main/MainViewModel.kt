@@ -27,32 +27,44 @@ class MainViewModel @Inject constructor (
     val state: Observable<MainState> = _state
 
     fun getGitUsers(page: Int = 0) {
-        repository.getUsers(page)
+        repository.getUsersFromAPI(page)
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .subscribeBy(
                 onSuccess = {
-                    if (it.isSuccess) {
-                        val map = it.result()
-                        val gitUsersList = map[KEY_GIT_USER_DATA] as List<GitUser>
-
-                        if (gitUsersList.isEmpty()) {
-                            _state.onNext(
-                                MainState.Empty
-                            )
-                        } else {
-                            _state.onNext(
-                                MainState.Success(gitUsersList)
-                            )
-                        }
+                    if (it.isEmpty()) {
+                        _state.onNext(
+                            MainState.Empty
+                        )
                     } else {
-                        it.error().cause?.let { it1 ->
-                            MainState.Error(it1)
-                        }?.let { it2 ->
-                            _state.onNext(
-                                it2
-                            )
-                        }
+                        _state.onNext(
+                            MainState.Success(it)
+                        )
+                    }
+                },
+                onError = {
+                    _state.onNext(
+                        MainState.Error(it)
+                    )
+                }
+            )
+            .addTo(disposables)
+    }
+
+    fun getLocalGitUsers() {
+        repository.getLocalGitUsers()
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
+            .subscribeBy(
+                onSuccess = {
+                    if (it.isEmpty()) {
+                        _state.onNext(
+                            MainState.Empty
+                        )
+                    } else {
+                        _state.onNext(
+                            MainState.Success(it)
+                        )
                     }
                 },
                 onError = {

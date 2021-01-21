@@ -31,7 +31,8 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             )
             .addTo(disposables)
 
-        viewModel.getGitUsers(0)
+        viewModel.getGitUsers()
+//        viewModel.getLocalGitUsers()
     }
 
     private fun handleStates(state: MainState) {

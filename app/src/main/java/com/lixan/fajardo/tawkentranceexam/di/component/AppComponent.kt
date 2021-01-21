@@ -18,8 +18,10 @@ import javax.inject.Singleton
         ActivityBuilderModule::class,
         NetworkModule::class,
         SchedulerModule::class,
+        DatabaseModule::class,
         ApiServiceModule::class,
         RemoteRepositoryModule::class,
+        LocalRepositoryModule::class,
         RepositoryModule::class
     ]
 )
