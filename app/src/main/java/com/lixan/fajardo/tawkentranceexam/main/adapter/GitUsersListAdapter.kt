@@ -2,6 +2,7 @@ package com.lixan.fajardo.tawkentranceexam.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.databinding.ItemGitUserListBinding
@@ -15,7 +16,7 @@ class GitUsersListAdapter constructor(
     private val disposables: CompositeDisposable
 ) : RecyclerView.Adapter<GitUsersListAdapter.ViewHolder>() {
 
-    private val gitUserList: MutableList<GitUser> = mutableListOf()
+    private val gitUsersList: MutableList<GitUser> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,19 +26,45 @@ class GitUsersListAdapter constructor(
     }
 
     override fun getItemCount(): Int {
-        return this.gitUserList.size
+        return this.gitUsersList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        return holder.bind(gitUserList[position], position)
+        return holder.bind(gitUsersList[position], position)
     }
 
     fun setData(gitUserList: List<GitUser>) {
-        this.gitUserList.clear()
-        if (this.gitUserList.isEmpty()) {
-            this.gitUserList.addAll(gitUserList)
+        this.gitUsersList.clear()
+        if (this.gitUsersList.isEmpty()) {
+            this.gitUsersList.addAll(gitUserList)
             notifyDataSetChanged()
         }
+    }
+
+    fun addData(gitUserList: List<GitUser>) {
+        DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return gitUsersList[oldItemPosition] == gitUserList[newItemPosition]
+            }
+
+            override fun getOldListSize(): Int {
+                return gitUsersList.size
+            }
+
+            override fun getNewListSize(): Int {
+               return gitUserList.size
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                val (oldID) = gitUsersList[oldItemPosition]
+                val (newID) = gitUserList[newItemPosition]
+                return oldID == newID
+            }
+
+        })
+        gitUsersList.addAll(gitUserList)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(

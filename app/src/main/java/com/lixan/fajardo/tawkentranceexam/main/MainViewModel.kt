@@ -15,29 +15,47 @@ class MainViewModel @Inject constructor (
     private val resourceManager: ResourceManager
 ): BaseViewModel() {
 
-    override fun isFirstTimeUICreated(bundle: Bundle?) = getGitUsers()
+    override fun isFirstTimeUICreated(bundle: Bundle?) = Unit
 
     private val _state by lazy {
         PublishSubject.create<MainState>()
     }
 
+    private var page: Int = 0
+    private var isLoading = false
+    private var lastIDSearched: Int = 0
+
     val state: Observable<MainState> = _state
 
-    fun getGitUsers(page: Int = 0) {
+    fun getGitUsers(isRefresh: Boolean = true) {
+
+        if (isLoading) {
+            return
+        }
+        //if request is not refreshed, then increment page by 1
+        if (isRefresh) {
+            page = 0
+        } else {
+            page += lastIDSearched
+        }
+
         repository.getUsersFromAPI(page)
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .doOnSubscribe {
+                isLoading = true
                 _state.onNext(
                     MainState.ShowProgressLoading
                 )
             }
             .doOnSuccess {
+                isLoading = false
                 _state.onNext(
                     MainState.HideProgressLoading
                 )
             }
             .doOnError {
+                isLoading = false
                 _state.onNext(
                     MainState.HideProgressLoading
                 )
@@ -49,9 +67,17 @@ class MainViewModel @Inject constructor (
                             MainState.Empty
                         )
                     } else {
-                        _state.onNext(
-                            MainState.SetData(it)
-                        )
+                        if (isRefresh) {
+                            lastIDSearched = it[it.lastIndex].id
+                            _state.onNext(
+                                MainState.SetData(it)
+                            )
+                        } else {
+                            _state.onNext(
+                                MainState.AddData(it)
+                            )
+                        }
+
                     }
                 },
                 onError = {

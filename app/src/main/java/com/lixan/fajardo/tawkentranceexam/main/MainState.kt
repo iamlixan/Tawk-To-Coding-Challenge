@@ -12,6 +12,8 @@ sealed class MainState {
 
     data class SetData(val gitUsers: List<GitUser>) : MainState()
 
+    data class AddData(val gitUsers: List<GitUser>): MainState()
+
     data class Error(val message: Throwable) : MainState()
 
 }

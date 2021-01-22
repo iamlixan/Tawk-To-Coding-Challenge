@@ -3,6 +3,7 @@ package com.lixan.fajardo.tawkentranceexam.main
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
@@ -25,8 +26,9 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupVMObserver()
+
         setupView()
+        setupVMObserver()
     }
 
     private fun setupVMObserver() {
@@ -41,6 +43,8 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 }
             )
             .addTo(disposables)
+
+        viewModel.getGitUsers()
     }
 
     private fun setupView() {
@@ -61,12 +65,23 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
         adapter = GitUsersListAdapter(this, disposables)
         binding.rvUserList.layoutManager = LinearLayoutManager(this)
         binding.rvUserList.adapter = adapter
+
+        binding.rvUserList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (!recyclerView.canScrollVertically(SCROLL_DIRECTION) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    viewModel.getGitUsers(false)
+                }
+            }
+        })
     }
 
     private fun handleStates(state: MainState) {
         when(state) {
             is MainState.SetData -> {
                 adapter.setData(state.gitUsers)
+            }
+            is MainState.AddData -> {
+                adapter.addData(state.gitUsers)
             }
             is MainState.ShowProgressLoading -> {
                 binding.progressLayout.setVisible(true)
@@ -89,4 +104,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
         Toast.makeText(this, "CLICKED: $position", Toast.LENGTH_SHORT).show()
     }
 
+    companion object {
+        const val SCROLL_DIRECTION = 1
+    }
 }
