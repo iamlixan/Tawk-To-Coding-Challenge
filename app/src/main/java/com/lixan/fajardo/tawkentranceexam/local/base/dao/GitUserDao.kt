@@ -1,6 +1,7 @@
 package com.lixan.fajardo.tawkentranceexam.local.base.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.local.base.BaseDao

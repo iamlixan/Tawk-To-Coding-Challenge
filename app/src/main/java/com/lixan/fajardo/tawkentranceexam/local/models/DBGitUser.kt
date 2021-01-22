@@ -76,6 +76,22 @@ data class DBGitUser(
             }
         }
 
+        fun mapListFromDomain(gitUserList: List<GitUser>): List<DBGitUser> {
+            return with(gitUserList) {
+                map {
+                    fromDomain(it)
+                }
+            }
+        }
+
+        fun mapListToDomain(gitUserList: List<DBGitUser>): List<GitUser> {
+            return with(gitUserList) {
+                map {
+                    toDomain(it)
+                }
+            }
+        }
+
         fun toDomain(gitUserDB: DBGitUser): GitUser {
             return with(gitUserDB) {
                 GitUser(

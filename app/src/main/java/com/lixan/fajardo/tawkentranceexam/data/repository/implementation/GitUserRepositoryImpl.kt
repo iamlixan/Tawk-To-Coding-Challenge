@@ -30,7 +30,7 @@ class GitUserRepositoryImpl @Inject constructor(
         return remote.getUsers(page).flatMap { result ->
             val gitUserList = result.result()[KEY_GIT_USER_DATA] as List<GitUser>
             if (result.isSuccess) {
-                saveGitUserList(gitUserList).map { it }
+                saveGitUserList(gitUserList)
             } else {
                 Single.just(gitUserList)
             }
