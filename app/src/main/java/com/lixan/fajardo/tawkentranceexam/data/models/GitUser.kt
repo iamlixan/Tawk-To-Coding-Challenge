@@ -6,7 +6,7 @@ data class GitUser(
     val loginName: String,
     val id: Int,
     val nodeId: String,
-    val avatarId: String,
+    val avatarUrl: String,
     val gravatarId: String,
     val url: String,
     val htmlUrl: String,

@@ -6,6 +6,7 @@ import com.lixan.fajardo.tawkentranceexam.local.source.GitUserLocalRepository
 import com.lixan.fajardo.tawkentranceexam.network.remoterepository.source.GitUserRemoteRepository
 import com.lixan.fajardo.tawkentranceexam.utils.KEY_GIT_USER_DATA
 import io.reactivex.Single
+import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -39,6 +40,7 @@ class GitUserRepositoryImpl @Inject constructor(
                     Single.just(gitUserList)
                 }
                 result.error().cause is UnknownHostException -> {
+                    Timber.d("HERE")
                     getLocalGitUsers()
                 }
                 else -> {

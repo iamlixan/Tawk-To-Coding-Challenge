@@ -21,6 +21,7 @@ ext {
     def archCompVersion = "2.1.0"
     def facebookShimmerVersion = "0.5.0"
     def okhttpVersion = "4.4.0"
+    def circleImageViewVersion = "2.2.0"
 
     Libs = [
             appCompat: [
@@ -121,6 +122,9 @@ ext {
             ],
             roomCompiler: [
                     "androidx.room:room-compiler:$archCompVersion"
+            ],
+            circleImageView: [
+                    "de.hdodenhof:circleimageview:$circleImageViewVersion"
             ]
     ]
 

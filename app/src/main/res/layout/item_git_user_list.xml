@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="gitUser"
+            type="com.lixan.fajardo.tawkentranceexam.data.models.GitUser" />
+    </data>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="@dimen/_80dp"
+            android:src="@drawable/ic_placeholder"
+            android:paddingTop="@dimen/_8dp"
+            android:paddingBottom="@dimen/_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{gitUser.loginName}"
+            android:textColor="@color/dorado"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/_16dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            tools:text="Username" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivNoteIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_outline_note_24"
+            android:visibility="invisible"
+            android:layout_marginEnd="@dimen/_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tvFollowers"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/dorado"-->
+<!--            android:textSize="@dimen/_16sp"-->
+<!--            android:layout_marginStart="@dimen/_16dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"-->
+<!--            app:layout_constraintStart_toEndOf="@id/ivAvatar"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvUserName"-->
+<!--            app:layout_constraintVertical_bias="0.0"-->
+<!--            tools:text="Followers: 3435" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tvFollowing"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/dorado"-->
+<!--            android:textSize="@dimen/_16sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"-->
+<!--            app:layout_constraintStart_toEndOf="@id/tvFollowers"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvUserName"-->
+<!--            app:layout_constraintVertical_bias="0.0"-->
+<!--            tools:text="Following: 3435" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

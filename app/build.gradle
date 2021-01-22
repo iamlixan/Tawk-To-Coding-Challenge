@@ -99,6 +99,8 @@ dependencies {
     api Libs.roomRx
     kapt Libs.roomCompiler
 
+    api Libs.circleImageView
+
     testImplementation TestLibs.junit
     testImplementation TestLibs.testRunner
     testImplementation TestLibs.espresso

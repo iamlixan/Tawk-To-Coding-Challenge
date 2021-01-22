@@ -1,17 +1,13 @@
 package com.lixan.fajardo.tawkentranceexam.main
 
 import android.os.Bundle
-import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.data.repository.source.GitUserRepository
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModel
-import com.lixan.fajardo.tawkentranceexam.utils.KEY_GIT_USER_DATA
 import com.lixan.fajardo.tawkentranceexam.utils.ResourceManager
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
-import retrofit2.HttpException
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor (
@@ -31,6 +27,21 @@ class MainViewModel @Inject constructor (
         repository.getUsersFromAPI(page)
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
+            .doOnSubscribe {
+                _state.onNext(
+                    MainState.ShowProgressLoading
+                )
+            }
+            .doOnSuccess {
+                _state.onNext(
+                    MainState.HideProgressLoading
+                )
+            }
+            .doOnError {
+                _state.onNext(
+                    MainState.HideProgressLoading
+                )
+            }
             .subscribeBy(
                 onSuccess = {
                     if (it.isEmpty()) {
@@ -39,7 +50,7 @@ class MainViewModel @Inject constructor (
                         )
                     } else {
                         _state.onNext(
-                            MainState.Success(it)
+                            MainState.SetData(it)
                         )
                     }
                 },
@@ -64,7 +75,7 @@ class MainViewModel @Inject constructor (
                         )
                     } else {
                         _state.onNext(
-                            MainState.Success(it)
+                            MainState.SetData(it)
                         )
                     }
                 },

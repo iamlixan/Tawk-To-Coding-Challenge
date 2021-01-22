@@ -6,7 +6,11 @@ sealed class MainState {
 
     object Empty : MainState()
 
-    data class Success(val gitUsers: List<GitUser>) : MainState()
+    object ShowProgressLoading: MainState()
+
+    object HideProgressLoading: MainState()
+
+    data class SetData(val gitUsers: List<GitUser>) : MainState()
 
     data class Error(val message: Throwable) : MainState()
 
