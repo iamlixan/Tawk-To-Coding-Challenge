@@ -28,7 +28,7 @@ data class DBGitUser(
     @ColumnInfo(name = "site_admin") val siteAdmin: Boolean
 ) {
     companion object {
-        const val DB_GIT_USER_TABLE_NAME = "DBGitUser"
+        const val DB_GIT_USER_TABLE_NAME = "gitusers"
 
         fun empty(): DBGitUser {
             return DBGitUser(
