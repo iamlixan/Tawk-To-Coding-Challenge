@@ -15,6 +15,12 @@ abstract class BaseViewModel: ViewModel() {
     @Inject
     lateinit var schedulers: BaseSchedulerProvider
 
+    /**
+     * @Return True when UI hasn't called ViewModel.onCreate yet.
+     *
+     * When activity/fragment is reloaded view model will check this flag
+     * so it doesn't need to reload data.
+     */
     private var isFirstTimeUICreated: Boolean = true
 
     @CallSuper

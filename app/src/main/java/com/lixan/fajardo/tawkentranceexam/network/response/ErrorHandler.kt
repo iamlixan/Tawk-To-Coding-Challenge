@@ -5,6 +5,7 @@ import com.lixan.fajardo.tawkentranceexam.network.response.base.BaseErrorRespons
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import java.net.UnknownHostException
 
 class ErrorHandler {
 
@@ -22,7 +23,8 @@ class ErrorHandler {
 
                     ResultError(errorMessage, throwable, errorResponse.errorCode)
                 }
-                is IOException -> {
+                is IOException,
+                is UnknownHostException -> {
                     ResultError("Please check your network connection", throwable)
                 }
                 else -> {

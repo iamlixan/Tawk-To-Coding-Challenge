@@ -10,6 +10,7 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class MainViewModel @Inject constructor (
     private val resourceManager: ResourceManager
 ): BaseViewModel() {
 
-    override fun isFirstTimeUICreated(bundle: Bundle?) = Unit
+    override fun isFirstTimeUICreated(bundle: Bundle?) = getGitUsers()
 
     private val _state by lazy {
         PublishSubject.create<MainState>()
