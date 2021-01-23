@@ -49,6 +49,7 @@
 
         <include
             android:id="@+id/progressLayout"
+            android:visibility="gone"
             layout="@layout/include_progressbar"
             />
 

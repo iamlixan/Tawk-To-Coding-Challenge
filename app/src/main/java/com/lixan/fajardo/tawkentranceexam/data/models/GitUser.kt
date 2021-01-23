@@ -1,7 +1,9 @@
 package com.lixan.fajardo.tawkentranceexam.data.models
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class GitUser(
     val loginName: String,
     val id: Int,
@@ -21,7 +23,7 @@ data class GitUser(
     val type: String,
     val siteAdmin: Boolean,
     var notes: String = ""
-) {
+): Parcelable {
     companion object {
         fun empty(): GitUser {
             return GitUser (

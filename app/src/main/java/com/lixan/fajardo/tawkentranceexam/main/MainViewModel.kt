@@ -16,7 +16,7 @@ class MainViewModel @Inject constructor (
     private val resourceManager: ResourceManager
 ): BaseViewModel() {
 
-    override fun isFirstTimeUICreated(bundle: Bundle?) = Unit
+    override fun isFirstTimeUICreated(bundle: Bundle?) = getGitUsers()
 
     private val _state by lazy {
         PublishSubject.create<MainState>()
@@ -93,7 +93,7 @@ class MainViewModel @Inject constructor (
             .addTo(disposables)
     }
 
-    private fun getLocalGitUsers() {
+     fun getLocalGitUsers() {
         repository.getLocalGitUsers()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())

@@ -1,6 +1,7 @@
 package com.lixan.fajardo.tawkentranceexam.main
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,12 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
     private lateinit var adapter: GitUsersListAdapter
 
+    private lateinit var linearLayoutManager: LinearLayoutManager
+
+    private var rvState: Parcelable? = null
+
+    private var gitUserList = arrayListOf<GitUser>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,8 +50,28 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 }
             )
             .addTo(disposables)
+    }
 
-        viewModel.getGitUsers()
+    override fun onSaveInstanceState(outState: Bundle) {
+        rvState = binding.rvUserList.layoutManager?.onSaveInstanceState()
+        outState.putParcelable(KEY_RECYCLERVIEW_STATE, rvState)
+        outState.putParcelableArrayList(KEY_RECYCLERVIEW_ITEMS, gitUserList)
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        rvState = savedInstanceState.getParcelable(KEY_RECYCLERVIEW_STATE)
+        if (gitUserList.isNotEmpty()) {
+            gitUserList.clear()
+            gitUserList.addAll(
+                savedInstanceState.getParcelableArrayList(KEY_RECYCLERVIEW_ITEMS) ?: emptyList()
+            )
+        }
+
+        adapter.setData(gitUserList)
+        binding.rvUserList.layoutManager?.onRestoreInstanceState(rvState)
     }
 
     private fun setupView() {
@@ -62,8 +89,15 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 }
             ).addTo(disposables)
 
-        adapter = GitUsersListAdapter(this, disposables)
-        binding.rvUserList.layoutManager = LinearLayoutManager(this)
+        if (!this::adapter.isInitialized){
+            adapter = GitUsersListAdapter(this, disposables)
+
+        }
+        if (!this::linearLayoutManager.isInitialized) {
+            linearLayoutManager = LinearLayoutManager(this)
+        }
+
+        binding.rvUserList.layoutManager = linearLayoutManager
         binding.rvUserList.adapter = adapter
 
         binding.rvUserList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -78,9 +112,12 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
     private fun handleStates(state: MainState) {
         when(state) {
             is MainState.SetData -> {
+                gitUserList.clear()
+                gitUserList.addAll(state.gitUsers)
                 adapter.setData(state.gitUsers)
             }
             is MainState.AddData -> {
+                gitUserList.addAll(state.gitUsers)
                 adapter.addData(state.gitUsers)
             }
             is MainState.ShowProgressLoading -> {
@@ -107,5 +144,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
     companion object {
         const val SCROLL_DIRECTION = 1
+        const val KEY_RECYCLERVIEW_STATE = "KEY_RECYCLERVIEW_STATE"
+        const val KEY_RECYCLERVIEW_ITEMS = "KEY_RECYCLERVIEW_ITEMS"
     }
 }
