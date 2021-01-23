@@ -8,6 +8,8 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
+import timber.log.Timber
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor (
@@ -62,34 +64,37 @@ class MainViewModel @Inject constructor (
             }
             .subscribeBy(
                 onSuccess = {
-                    if (it.isEmpty()) {
-                        _state.onNext(
-                            MainState.Empty
-                        )
-                    } else {
-                        if (isRefresh) {
-                            lastIDSearched = it[it.lastIndex].id
+                    if (it.isSuccess) {
+
+                        if (it.result().isEmpty()) {
                             _state.onNext(
-                                MainState.SetData(it)
+                                MainState.Empty
                             )
                         } else {
-                            _state.onNext(
-                                MainState.AddData(it)
+                            if (isRefresh) {
+                                lastIDSearched = it.result()[it.result().lastIndex].id
+                                _state.onNext(
+                                    MainState.SetData(it.result())
+                                )
+                            } else {
+                                _state.onNext(
+                                MainState.AddData(it.result())
                             )
+                            }
                         }
-
+                    } else if(it.isError && it.error().cause is UnknownHostException){
+                        getLocalGitUsers()
+                    } else {
+                        _state.onNext(
+                            MainState.Error(it.error().cause ?: Throwable(it.error().errorMessage))
+                        )
                     }
-                },
-                onError = {
-                    _state.onNext(
-                        MainState.Error(it)
-                    )
                 }
             )
             .addTo(disposables)
     }
 
-    fun getLocalGitUsers() {
+    private fun getLocalGitUsers() {
         repository.getLocalGitUsers()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
@@ -100,6 +105,7 @@ class MainViewModel @Inject constructor (
                             MainState.Empty
                         )
                     } else {
+                        lastIDSearched = it[it.lastIndex].id
                         _state.onNext(
                             MainState.SetData(it)
                         )

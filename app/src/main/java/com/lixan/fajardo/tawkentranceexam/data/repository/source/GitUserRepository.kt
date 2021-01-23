@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface GitUserRepository {
 
-    fun getUsersFromAPI(page: Int = 0): Single<List<GitUser>>
+    fun getUsersFromAPI(page: Int = 0): Single<RequestResult<List<GitUser>>>
 
     fun saveGitUser(gitUser: GitUser): Single<GitUser>
 

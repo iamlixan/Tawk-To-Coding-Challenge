@@ -49,6 +49,8 @@ class GitUserLocalRepositoryImpl @Inject constructor(
                 .apply {
                     insert(DBGitUser.mapListFromDomain(gitUserList).toMutableList())
                 }
+
+            emitter.onSuccess(gitUserList)
         }
     }
 
