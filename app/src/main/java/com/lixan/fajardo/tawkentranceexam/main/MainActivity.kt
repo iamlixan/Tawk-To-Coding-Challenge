@@ -89,13 +89,14 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             is MainState.HideProgressLoading -> {
                 binding.progressLayout.setVisible(false)
             }
-            is MainState.Empty -> {
-                Toast.makeText(this, "EMPTY", Toast.LENGTH_LONG).show()
+            is MainState.RemoteEmpty -> {
+                Toast.makeText(this, "REMOTE EMPTY", Toast.LENGTH_SHORT).show()
+            }
+            is MainState.LocalEmpty -> {
+                Toast.makeText(this, "LOCAL EMPTY", Toast.LENGTH_SHORT).show()
             }
             is MainState.Error -> {
                 Timber.e("ERROR! : ${state.message}")
-                Toast.makeText(this, "ERROR! : ${state.message}", Toast.LENGTH_LONG).show()
-//                binding.tv.text = "ERROR! : ${state.message}"
             }
         }
     }

@@ -8,7 +8,6 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
-import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -68,7 +67,7 @@ class MainViewModel @Inject constructor (
 
                         if (it.result().isEmpty()) {
                             _state.onNext(
-                                MainState.Empty
+                                MainState.RemoteEmpty
                             )
                         } else {
                             if (isRefresh) {
@@ -98,11 +97,26 @@ class MainViewModel @Inject constructor (
         repository.getLocalGitUsers()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
+            .doOnSubscribe {
+                _state.onNext(
+                    MainState.ShowProgressLoading
+                )
+            }
+            .doOnSuccess {
+                _state.onNext(
+                    MainState.HideProgressLoading
+                )
+            }
+            .doOnError {
+                _state.onNext(
+                    MainState.HideProgressLoading
+                )
+            }
             .subscribeBy(
                 onSuccess = {
                     if (it.isEmpty()) {
                         _state.onNext(
-                            MainState.Empty
+                            MainState.LocalEmpty
                         )
                     } else {
                         lastIDSearched = it[it.lastIndex].id

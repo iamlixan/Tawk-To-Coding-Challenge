@@ -25,7 +25,8 @@ data class DBGitUser(
     @ColumnInfo(name = "repos_url") val reposUrl: String,
     @ColumnInfo(name = "events_url") val eventsUrl: String,
     @ColumnInfo(name = "type") val type: String,
-    @ColumnInfo(name = "site_admin") val siteAdmin: Boolean
+    @ColumnInfo(name = "site_admin") val siteAdmin: Boolean,
+    @ColumnInfo(name = "notes") val notes: String
 ) {
     companion object {
         const val DB_GIT_USER_TABLE_NAME = "gitusers"
@@ -48,7 +49,8 @@ data class DBGitUser(
                 "",
                 "",
                 "",
-                false
+                false,
+                ""
             )
         }
 
@@ -71,7 +73,8 @@ data class DBGitUser(
                     reposUrl = reposUrl,
                     eventsUrl = eventsUrl,
                     type = type,
-                    siteAdmin = siteAdmin
+                    siteAdmin = siteAdmin,
+                    notes = notes
                 )
             }
         }
@@ -111,7 +114,8 @@ data class DBGitUser(
                     reposUrl = reposUrl,
                     eventsUrl = eventsUrl,
                     type = type,
-                    siteAdmin = siteAdmin
+                    siteAdmin = siteAdmin,
+                    notes = notes
                 )
             }
         }

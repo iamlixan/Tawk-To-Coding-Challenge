@@ -4,7 +4,9 @@ import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 
 sealed class MainState {
 
-    object Empty : MainState()
+    object RemoteEmpty : MainState()
+
+    object LocalEmpty : MainState()
 
     object ShowProgressLoading: MainState()
 

@@ -19,7 +19,8 @@ data class GitUser(
     val reposUrl: String,
     val eventsUrl: String,
     val type: String,
-    val siteAdmin: Boolean
+    val siteAdmin: Boolean,
+    var notes: String = ""
 ) {
     companion object {
         fun empty(): GitUser {
@@ -40,7 +41,8 @@ data class GitUser(
                 "",
                 "",
                 "",
-                false
+                false,
+                ""
             )
         }
     }
