@@ -14,6 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftVerticalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightVerticalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".95" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivAvatar"
             android:layout_width="@dimen/_80dp"
@@ -21,7 +35,7 @@
             android:src="@drawable/ic_placeholder"
             android:paddingTop="@dimen/_8dp"
             android:paddingBottom="@dimen/_8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -45,36 +59,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_outline_note_24"
             android:visibility="invisible"
-            android:layout_marginEnd="@dimen/_16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rightVerticalGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:id="@+id/tvFollowers"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/dorado"-->
-<!--            android:textSize="@dimen/_16sp"-->
-<!--            android:layout_marginStart="@dimen/_16dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"-->
-<!--            app:layout_constraintStart_toEndOf="@id/ivAvatar"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/tvUserName"-->
-<!--            app:layout_constraintVertical_bias="0.0"-->
-<!--            tools:text="Followers: 3435" />-->
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:id="@+id/tvFollowing"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/dorado"-->
-<!--            android:textSize="@dimen/_16sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/ivAvatar"-->
-<!--            app:layout_constraintStart_toEndOf="@id/tvFollowers"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/tvUserName"-->
-<!--            app:layout_constraintVertical_bias="0.0"-->
-<!--            tools:text="Following: 3435" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

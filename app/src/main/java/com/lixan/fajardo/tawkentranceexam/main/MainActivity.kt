@@ -3,6 +3,7 @@ package com.lixan.fajardo.tawkentranceexam.main
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChanges
@@ -112,7 +113,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
     }
 
     private fun setupView() {
-        binding.tvSearch
+        binding.etSearch
             .textChanges()
             .skipInitialValue()
             .debounce(NINJA_TAP_THROTTLE_TIME, TimeUnit.MILLISECONDS)
@@ -136,6 +137,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
         binding.rvUserList.layoutManager = linearLayoutManager
         binding.rvUserList.adapter = adapter
+        binding.rvUserList.addItemDecoration(DividerItemDecoration(this, linearLayoutManager.orientation))
 
         binding.rvUserList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
