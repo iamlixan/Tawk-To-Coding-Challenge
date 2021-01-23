@@ -35,10 +35,10 @@ class MainViewModel @Inject constructor (
             return
         }
         //if request is not refreshed, then increment page by 1
-        if (isRefresh) {
-            page = 0
+        page = if (isRefresh) {
+            0
         } else {
-            page += lastIDSearched
+            lastIDSearched
         }
 
         repository.getUsersFromAPI(page)
@@ -71,8 +71,8 @@ class MainViewModel @Inject constructor (
                                 MainState.RemoteEmpty
                             )
                         } else {
+                            lastIDSearched = it.result()[it.result().lastIndex].id
                             if (isRefresh) {
-                                lastIDSearched = it.result()[it.result().lastIndex].id
                                 _state.onNext(
                                     MainState.SetData(it.result())
                                 )
@@ -97,7 +97,7 @@ class MainViewModel @Inject constructor (
             .addTo(disposables)
     }
 
-     private fun getLocalGitUsers() {
+    fun getLocalGitUsers() {
         repository.getLocalGitUsers()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())

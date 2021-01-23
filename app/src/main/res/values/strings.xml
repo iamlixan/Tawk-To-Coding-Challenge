@@ -5,5 +5,7 @@
     <string name="following_with_count">Following: $1s</string>
 
 
+    <string name="message_internet_connected">Internet Connected.</string>
     <string name="error_no_internet">No Internet connection. Make sure that Wi-Fi or mobile data is turned on, then try again.</string>
+    <string name="error_internet_disconnected">Internet Disconnected. Some features may not be available.</string>
 </resources>

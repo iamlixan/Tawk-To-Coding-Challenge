@@ -1,12 +1,14 @@
 package com.lixan.fajardo.tawkentranceexam.di.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import com.lixan.fajardo.tawkentranceexam.R
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -36,4 +38,18 @@ abstract class BaseActivity<BINDING: ViewDataBinding>: AppCompatActivity(), HasS
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
+    fun showErrorSnackbar(message: String) {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+        val snackBarView = snackbar.view
+        snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.torch_red))
+        snackbar.show()
+    }
+
+    fun showSuccessSnackbar(message: String) {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+        val snackBarView = snackbar.view
+        snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.sushi))
+        snackbar.show()
+    }
 }

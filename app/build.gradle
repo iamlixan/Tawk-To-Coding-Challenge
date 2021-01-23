@@ -101,6 +101,8 @@ dependencies {
 
     api Libs.circleImageView
 
+    implementation Libs.merlin
+
     testImplementation TestLibs.junit
     testImplementation TestLibs.testRunner
     testImplementation TestLibs.espresso

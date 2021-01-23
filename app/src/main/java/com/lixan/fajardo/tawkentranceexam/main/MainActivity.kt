@@ -5,7 +5,6 @@ import android.os.Parcelable
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
@@ -15,6 +14,7 @@ import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import com.lixan.fajardo.tawkentranceexam.main.adapter.GitUsersListAdapter
 import com.lixan.fajardo.tawkentranceexam.main.adapter.GitUsersListListener
 import com.lixan.fajardo.tawkentranceexam.utils.NINJA_TAP_THROTTLE_TIME
+import com.novoda.merlin.Merlin
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
@@ -32,11 +32,26 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
     private var gitUserList = arrayListOf<GitUser>()
 
+    private lateinit var merlin: Merlin
+
+    private var showInternetConnectedStatus: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
         setupVMObserver()
+        setupMerlin()
+    }
+
+    override fun onPause() {
+        merlin.unbind()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        merlin.bind()
+        super.onResume()
     }
 
     private fun setupVMObserver() {
@@ -52,6 +67,27 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             )
             .addTo(disposables)
     }
+
+    private fun setupMerlin(){
+        merlin = Merlin.Builder()
+            .withConnectableCallbacks()
+            .withDisconnectableCallbacks()
+            .build(this)
+
+        merlin.registerConnectable {
+            if (showInternetConnectedStatus) {
+                viewModel.getGitUsers(true)
+                showSuccessSnackbar(getString(R.string.message_internet_connected))
+            }
+
+            showInternetConnectedStatus = true
+        }
+
+        merlin.registerDisconnectable {
+            showErrorSnackbar(getString(R.string.error_internet_disconnected))
+        }
+    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         rvState = binding.rvUserList.layoutManager?.onSaveInstanceState()
@@ -134,7 +170,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 Toast.makeText(this, "LOCAL EMPTY", Toast.LENGTH_SHORT).show()
             }
             is MainState.NoInternetError -> {
-                Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
+                showErrorSnackbar(state.message)
             }
             is MainState.Error -> {
                 Timber.e("ERROR! : ${state.message}")
