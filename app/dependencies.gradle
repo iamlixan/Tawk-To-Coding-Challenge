@@ -23,6 +23,8 @@ ext {
     def okhttpVersion = "4.4.0"
     def circleImageViewVersion = "2.2.0"
     def merlinVersion = "1.2.0"
+    def glideTransformationVersion = "4.3.0"
+    def gpuImageVersion = "2.1.0"
 
     Libs = [
             appCompat: [
@@ -129,6 +131,10 @@ ext {
             ],
             merlin: [
                     "com.novoda:merlin:$merlinVersion"
+            ],
+            glideTransformations: [
+                    "jp.wasabeef:glide-transformations:$glideTransformationVersion",
+                    "jp.co.cyberagent.android:gpuimage:$gpuImageVersion"
             ]
     ]
 

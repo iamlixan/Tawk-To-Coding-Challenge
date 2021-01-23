@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.databinding.ItemGitUserListBinding
+import com.lixan.fajardo.tawkentranceexam.ext.loadInvertedUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.loadUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.ninjaTap
 import com.lixan.fajardo.tawkentranceexam.ext.setVisible
@@ -76,7 +77,13 @@ class GitUsersListAdapter constructor(
 
         fun bind(gitUser: GitUser, position: Int) {
             binding.gitUser = gitUser
-            binding.ivAvatar.loadUserAvatar(gitUser.avatarUrl)
+
+            //position + 1 to get the exact item number from list.
+            if ((position + 1) % 4 == 0 && position > 0) {
+                binding.ivAvatar.loadInvertedUserAvatar(gitUser.avatarUrl)
+            } else {
+                binding.ivAvatar.loadUserAvatar(gitUser.avatarUrl)
+            }
 
             binding.clParent.ninjaTap {
                 listener.onItemClicked(position, gitUser)
