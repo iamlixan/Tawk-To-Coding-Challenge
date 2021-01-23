@@ -3,4 +3,7 @@
     <string name="search">Search</string>
     <string name="followers_with_count">Followers: $1s</string>
     <string name="following_with_count">Following: $1s</string>
+
+
+    <string name="error_no_internet">No Internet connection. Make sure that Wi-Fi or mobile data is turned on, then try again.</string>
 </resources>

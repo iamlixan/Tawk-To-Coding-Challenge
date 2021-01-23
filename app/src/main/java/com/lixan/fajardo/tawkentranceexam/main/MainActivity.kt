@@ -5,6 +5,7 @@ import android.os.Parcelable
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
@@ -131,6 +132,9 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             }
             is MainState.LocalEmpty -> {
                 Toast.makeText(this, "LOCAL EMPTY", Toast.LENGTH_SHORT).show()
+            }
+            is MainState.NoInternetError -> {
+                Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
             }
             is MainState.Error -> {
                 Timber.e("ERROR! : ${state.message}")

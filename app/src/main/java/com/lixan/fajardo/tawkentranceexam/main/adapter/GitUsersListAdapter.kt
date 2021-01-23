@@ -8,6 +8,7 @@ import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.databinding.ItemGitUserListBinding
 import com.lixan.fajardo.tawkentranceexam.ext.loadUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.ninjaTap
+import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
@@ -80,6 +81,10 @@ class GitUsersListAdapter constructor(
             binding.clParent.ninjaTap {
                 listener.onItemClicked(position, gitUser)
             }.addTo(disposables)
+
+            if(gitUser.notes.isNotBlank()) {
+                binding.ivNoteIndicator.setVisible(true)
+            }
             binding.executePendingBindings()
         }
     }

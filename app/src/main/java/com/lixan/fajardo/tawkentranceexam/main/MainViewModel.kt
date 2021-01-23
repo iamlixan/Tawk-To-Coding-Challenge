@@ -1,6 +1,7 @@
 package com.lixan.fajardo.tawkentranceexam.main
 
 import android.os.Bundle
+import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.repository.source.GitUserRepository
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModel
 import com.lixan.fajardo.tawkentranceexam.utils.ResourceManager
@@ -83,6 +84,9 @@ class MainViewModel @Inject constructor (
                         }
                     } else if(it.isError && it.error().cause is UnknownHostException){
                         getLocalGitUsers()
+                        _state.onNext(
+                            MainState.NoInternetError(resourceManager.getString(R.string.error_no_internet))
+                        )
                     } else {
                         _state.onNext(
                             MainState.Error(it.error().cause ?: Throwable(it.error().errorMessage))
@@ -93,7 +97,7 @@ class MainViewModel @Inject constructor (
             .addTo(disposables)
     }
 
-     fun getLocalGitUsers() {
+     private fun getLocalGitUsers() {
         repository.getLocalGitUsers()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
