@@ -2,6 +2,7 @@ package com.lixan.fajardo.tawkentranceexam.main
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -181,8 +182,13 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
         }
     }
 
-    override fun onItemClicked(position: Int, gitUser: GitUser) {
-        GitUserProfileActivity.openActivity(this, gitUser.loginName)
+    override fun onItemClicked(
+        position: Int,
+        gitUser: GitUser,
+        avatarView: View,
+        usernameView: View
+    ) {
+        GitUserProfileActivity.openActivity(this, gitUser.loginName, avatarView, usernameView)
     }
 
     companion object {

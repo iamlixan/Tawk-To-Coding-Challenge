@@ -1,22 +1,22 @@
 package com.lixan.fajardo.tawkentranceexam.main.profile
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.jakewharton.rxbinding3.view.clicks
 import com.lixan.fajardo.tawkentranceexam.R
+import androidx.core.util.Pair
+import androidx.core.app.ActivityOptionsCompat
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.databinding.ActivityUserProfileBinding
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModelActivity
 import com.lixan.fajardo.tawkentranceexam.ext.gone
 import com.lixan.fajardo.tawkentranceexam.ext.loadUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.ninjaTap
-import com.lixan.fajardo.tawkentranceexam.utils.NINJA_TAP_THROTTLE_TIME
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, GitUserProfileViewModel>() {
 
@@ -26,10 +26,15 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
 
     companion object {
         private const val KEY_USERNAME = "KEY_USERNAME"
-        fun openActivity(context: Context, username: String) {
+        fun openActivity(context: Context, username: String, avatarView: View, usernameView: View) {
             val intent = Intent(context, GitUserProfileActivity::class.java)
             intent.putExtra(KEY_USERNAME, username)
-            context.startActivity(intent)
+
+            val p1 = Pair.create(avatarView, "avatarTransition")
+            val p2 = Pair.create(usernameView, "usernameTransition")
+
+            val activityCompatOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, p1, p2)
+            context.startActivity(intent, activityCompatOptions.toBundle())
         }
     }
 

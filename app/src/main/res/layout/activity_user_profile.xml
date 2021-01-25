@@ -48,6 +48,7 @@
                     android:textSize="@dimen/_32sp"
                     android:textStyle="bold"
                     android:textColor="@color/dorado"
+                    android:transitionName="usernameTransition"
                     app:layout_constraintBottom_toBottomOf="@id/btnBack"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btnBack"
@@ -100,6 +101,7 @@
                     android:layout_height="@dimen/_172dp"
                     android:layout_margin="@dimen/_16dp"
                     android:src="@drawable/ic_placeholder"
+                    android:transitionName="avatarTransition"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
