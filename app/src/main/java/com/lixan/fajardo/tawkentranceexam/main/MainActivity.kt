@@ -79,12 +79,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             .build(this)
 
         merlin.registerConnectable {
-            if (showInternetConnectedStatus) {
-                viewModel.getGitUsers(true)
-                showSuccessSnackbar(getString(R.string.message_internet_connected))
-            }
-
-            showInternetConnectedStatus = true
+            viewModel.getGitUsers(true)
         }
 
         merlin.registerDisconnectable {
