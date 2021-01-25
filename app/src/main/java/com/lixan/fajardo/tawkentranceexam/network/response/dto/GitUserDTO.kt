@@ -22,7 +22,19 @@ data class GitUserDTO (
     @SerializedName("repos_url") val reposUrl: String,
     @SerializedName("events_url") val eventsUrl: String,
     @SerializedName("type") val type: String,
-    @SerializedName("site_admin") val siteAdmin: Boolean
+    @SerializedName("site_admin") val siteAdmin: Boolean,
+    @SerializedName("name") val name: String? = "",
+    @SerializedName("company") val company: String? = "",
+    @SerializedName("blog") val blog: String? = "",
+    @SerializedName("location") val location: String? = "",
+    @SerializedName("bio") val bio: String? = "",
+    @SerializedName("twitter_username") val twitterUsername: String? = "",
+    @SerializedName("public_repos") val publicRepos: Int? = 0,
+    @SerializedName("public_gists") val publicGists: Int? = 0,
+    @SerializedName("followers") val followers: Int? = 0,
+    @SerializedName("following") val following: Int? = 0,
+    @SerializedName("created_at") val createdAt: String? = "",
+    @SerializedName("updated_at") val updatedAt: String? = ""
 ) {
     companion object {
         fun mapGitUserResponse(from: GitUsersResponseData): Map<String, Any> {
@@ -35,7 +47,7 @@ data class GitUserDTO (
             return map
         }
 
-        private fun mapGitUser(from: GitUserDTO): GitUser {
+        fun mapGitUser(from: GitUserDTO): GitUser {
             return GitUser(
                 loginName = from.loginName,
                 id = from.id,
@@ -53,7 +65,19 @@ data class GitUserDTO (
                 reposUrl = from.reposUrl,
                 eventsUrl = from.eventsUrl,
                 type = from.type,
-                siteAdmin = from.siteAdmin
+                siteAdmin = from.siteAdmin,
+                name = from.name.orEmpty(),
+                company = from.company.orEmpty(),
+                blog = from.blog.orEmpty(),
+                location = from.location.orEmpty(),
+                bio = from.bio.orEmpty(),
+                twitterUsername = from.twitterUsername.orEmpty(),
+                publicRepos = from.publicRepos ?: 0,
+                publicGists = from.publicGists ?: 0,
+                followers = from.followers ?: 0,
+                following = from.following ?: 0,
+                createdAt = from.createdAt.orEmpty(),
+                updatedAt = from.updatedAt.orEmpty()
             )
         }
     }

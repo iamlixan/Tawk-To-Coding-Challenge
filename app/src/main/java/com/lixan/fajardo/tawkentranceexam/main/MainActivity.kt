@@ -14,6 +14,7 @@ import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModelActivity
 import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import com.lixan.fajardo.tawkentranceexam.main.adapter.GitUsersListAdapter
 import com.lixan.fajardo.tawkentranceexam.main.adapter.GitUsersListListener
+import com.lixan.fajardo.tawkentranceexam.main.profile.GitUserProfileActivity
 import com.lixan.fajardo.tawkentranceexam.utils.NINJA_TAP_THROTTLE_TIME
 import com.novoda.merlin.Merlin
 import io.reactivex.rxkotlin.addTo
@@ -181,7 +182,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
     }
 
     override fun onItemClicked(position: Int, gitUser: GitUser) {
-        Toast.makeText(this, "CLICKED: $position", Toast.LENGTH_SHORT).show()
+        GitUserProfileActivity.openActivity(this, gitUser.loginName)
     }
 
     companion object {

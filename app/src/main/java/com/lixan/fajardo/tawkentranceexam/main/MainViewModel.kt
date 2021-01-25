@@ -78,8 +78,8 @@ class MainViewModel @Inject constructor (
                                 )
                             } else {
                                 _state.onNext(
-                                MainState.AddData(it.result())
-                            )
+                                    MainState.AddData(it.result())
+                                )
                             }
                         }
                     } else if(it.isError && it.error().cause is UnknownHostException){

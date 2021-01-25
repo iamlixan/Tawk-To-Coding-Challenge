@@ -1,6 +1,7 @@
 package com.lixan.fajardo.tawkentranceexam.network.remoterepository.implementation
 
 import com.google.gson.Gson
+import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.network.ApiService
 import com.lixan.fajardo.tawkentranceexam.network.remoterepository.source.GitUserRemoteRepository
 import com.lixan.fajardo.tawkentranceexam.network.response.*
@@ -22,7 +23,7 @@ class GitUserRemoteRepositoryImpl @Inject constructor(
                 )
             } else {
                 RequestResult.error(
-                    ResultError(GitUsersResponseData(it).message)
+                    ResultError(GitUsersResponseData(it).message.orEmpty())
                 )
             }
         }
@@ -33,4 +34,17 @@ class GitUserRemoteRepositoryImpl @Inject constructor(
             }
     }
 
+    override fun getUserProfile(userName: String): Single<RequestResult<GitUser>> {
+
+        return apiService.getUserProfile(userName).map {
+                RequestResult.success(
+                    GitUserDTO.mapGitUser(it)
+                )
+            }
+            .onErrorReturn {
+                RequestResult.error(
+                    ErrorHandler.handleError(it)
+                )
+            }
+        }
 }

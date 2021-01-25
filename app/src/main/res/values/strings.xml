@@ -1,11 +1,20 @@
 <resources>
     <string name="app_name">TawkEntranceExam</string>
     <string name="search">Search</string>
-    <string name="followers_with_count">Followers: $1s</string>
-    <string name="following_with_count">Following: $1s</string>
+    <string name="followers_with_count">Followers: %1s</string>
+    <string name="following_with_count">Following: %1s</string>
+    <string name="name">Name: %1s</string>
+    <string name="company">Company: %1s</string>
+    <string name="blog">Blog: %1s</string>
+    <string name="location">Location: %1s</string>
+    <string name="bio">Bio: %1s</string>
+    <string name="twitter_username">Twitter: @%1s</string>
+    <string name="public_repos">Public Repositories: %1s</string>
+    <string name="public_gists">Public Gists: %1s</string>
 
 
     <string name="message_internet_connected">Internet Connected.</string>
     <string name="error_no_internet">No Internet connection. Make sure that Wi-Fi or mobile data is turned on, then try again.</string>
     <string name="error_internet_disconnected">Internet Disconnected. Some features may not be available.</string>
+    <string name="error_general_error">Oops! Something went wrong.</string>
 </resources>

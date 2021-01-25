@@ -6,6 +6,7 @@ import com.lixan.fajardo.tawkentranceexam.local.source.GitUserLocalRepository
 import com.lixan.fajardo.tawkentranceexam.network.remoterepository.source.GitUserRemoteRepository
 import com.lixan.fajardo.tawkentranceexam.network.response.ErrorHandler
 import com.lixan.fajardo.tawkentranceexam.network.response.RequestResult
+import com.lixan.fajardo.tawkentranceexam.network.response.ResultError
 import com.lixan.fajardo.tawkentranceexam.utils.KEY_GIT_USER_DATA
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -32,9 +33,26 @@ class GitUserRepositoryImpl @Inject constructor(
         return local.saveGitUserList(gitUserList)
     }
 
-    /*
-    * Gets users from API then saves it to the local DB. Checks if device is connected to internet, if not, will get the users data from local DB.
-    * */
+    override fun getUserProfileFromAPI(username: String): Single<RequestResult<GitUser>> {
+        return remote.getUserProfile(username)
+            .flatMap { result ->
+                if (result.isSuccess) {
+                    saveGitUser(result.result()).map { gitUser ->
+                        RequestResult.success(gitUser)
+                    }
+                } else {
+                    Single.just(
+                        RequestResult.error(result.error())
+                    )
+                }
+            }
+            .onErrorReturn {
+                RequestResult.error(
+                    ErrorHandler.handleError(it)
+                )
+            }
+    }
+
     override fun getUsersFromAPI(page: Int): Single<RequestResult<List<GitUser>>> {
         return remote
             .getUsers(page)
@@ -52,22 +70,6 @@ class GitUserRepositoryImpl @Inject constructor(
                     )
                 }
             }
-//        return remote.getUsers(page).flatMap { result ->
-//            when {
-//                result.isSuccess -> {
-//                    val gitUserList = result.result()[KEY_GIT_USER_DATA] as List<GitUser>
-//                    saveGitUserList(gitUserList)
-//                    Single.just(gitUserList)
-//                }
-//                result.error().cause is UnknownHostException -> {
-//                    Timber.d("HERE")
-//                    getLocalGitUsers()
-//                }
-//                else -> {
-//                    Single.error(result.error().cause)
-//                }
-//            }
-//        }
     }
 
     private fun saveGitUsersInfo(gitUserList: List<GitUser>): Observable<List<GitUser>> {

@@ -3,6 +3,7 @@ package com.lixan.fajardo.tawkentranceexam.local.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 
 @Entity(tableName = DBGitUser.DB_GIT_USER_TABLE_NAME)
@@ -26,7 +27,19 @@ data class DBGitUser(
     @ColumnInfo(name = "events_url") val eventsUrl: String,
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "site_admin") val siteAdmin: Boolean,
-    @ColumnInfo(name = "notes") val notes: String
+    @ColumnInfo(name = "notes") val notes: String,
+    @ColumnInfo(name = "name") val name: String = "",
+    @ColumnInfo(name = "company") val company: String = "",
+    @ColumnInfo(name = "blog") val blog: String = "",
+    @ColumnInfo(name = "location") val location: String = "",
+    @ColumnInfo(name = "bio") val bio: String = "",
+    @ColumnInfo(name = "twitter_username") val twitterUsername: String = "",
+    @ColumnInfo(name = "public_repos") val publicRepos: Int = 0,
+    @ColumnInfo(name = "public_gists") val publicGists: Int = 0,
+    @ColumnInfo(name = "followers") val followers: Int = 0,
+    @ColumnInfo(name = "following") val following: Int = 0,
+    @ColumnInfo(name = "created_at") val createdAt: String = "",
+    @ColumnInfo(name = "updated_at") val updatedAt: String = ""
 ) {
     companion object {
         const val DB_GIT_USER_TABLE_NAME = "gitusers"
@@ -50,6 +63,18 @@ data class DBGitUser(
                 "",
                 "",
                 false,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                0,
+                0,
+                0,
+                0,
+                "",
                 ""
             )
         }
@@ -74,7 +99,19 @@ data class DBGitUser(
                     eventsUrl = eventsUrl,
                     type = type,
                     siteAdmin = siteAdmin,
-                    notes = notes
+                    notes = notes,
+                    name = name,
+                    company = company,
+                    blog = blog,
+                    location = location,
+                    bio = bio,
+                    twitterUsername = twitterUsername,
+                    publicRepos = publicRepos,
+                    publicGists = publicGists,
+                    followers = followers,
+                    following = following,
+                    createdAt = createdAt,
+                    updatedAt = updatedAt
                 )
             }
         }
@@ -115,7 +152,19 @@ data class DBGitUser(
                     eventsUrl = eventsUrl,
                     type = type,
                     siteAdmin = siteAdmin,
-                    notes = notes
+                    notes = notes,
+                    name = name,
+                    company = company,
+                    blog = blog,
+                    location = location,
+                    bio = bio,
+                    twitterUsername = twitterUsername,
+                    publicRepos = publicRepos,
+                    publicGists = publicGists,
+                    followers = followers,
+                    following = following,
+                    createdAt = createdAt,
+                    updatedAt = updatedAt
                 )
             }
         }

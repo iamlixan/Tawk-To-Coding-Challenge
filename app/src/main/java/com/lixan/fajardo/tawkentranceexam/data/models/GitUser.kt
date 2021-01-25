@@ -1,6 +1,7 @@
 package com.lixan.fajardo.tawkentranceexam.data.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -22,7 +23,19 @@ data class GitUser(
     val eventsUrl: String,
     val type: String,
     val siteAdmin: Boolean,
-    var notes: String = ""
+    var notes: String = "",
+    val name: String = "",
+    val company: String = "",
+    val blog: String = "",
+    val location: String = "",
+    val bio: String = "",
+    val twitterUsername: String = "",
+    val publicRepos: Int = 0,
+    val publicGists: Int = 0,
+    val followers: Int = 0,
+    val following: Int = 0,
+    val createdAt: String = "",
+    val updatedAt: String = ""
 ): Parcelable {
     companion object {
         fun empty(): GitUser {
@@ -44,6 +57,18 @@ data class GitUser(
                 "",
                 "",
                 false,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                0,
+                0,
+                0,
+                0,
+                "",
                 ""
             )
         }

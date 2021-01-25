@@ -36,7 +36,7 @@ class GitUserLocalRepositoryImpl @Inject constructor(
         return Single.create{
             database.gitUserDao()
                 .apply {
-                    insert(DBGitUser.fromDomain(gitUser))
+                    insertOrUpdate(DBGitUser.fromDomain(gitUser))
                 }
 
             it.onSuccess(gitUser)
