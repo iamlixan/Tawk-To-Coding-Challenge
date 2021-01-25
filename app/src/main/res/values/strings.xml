@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">TawkEntranceExam</string>
     <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="notes">Notes: </string>
+    <string name="enter_notes_here">Enter notes here.</string>
     <string name="followers_with_count">Followers: %1s</string>
     <string name="following_with_count">Following: %1s</string>
     <string name="name">Name: %1s</string>
