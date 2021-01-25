@@ -16,4 +16,8 @@ abstract class GitUserDao : BaseDao<DBGitUser> {
 
     @Query("SELECT * FROM ${DBGitUser.DB_GIT_USER_TABLE_NAME} WHERE login = :username LIMIT 1")
     abstract fun getGitUserProfile(username: String): Single<DBGitUser>
+
+    @Query("SELECT * FROM ${DBGitUser.DB_GIT_USER_TABLE_NAME} WHERE login LIKE '%' || :username || '%'")
+    abstract fun searchGitUsers(username: String): Single<List<DBGitUser>>
+
 }

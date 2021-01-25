@@ -138,4 +138,23 @@ class MainViewModel @Inject constructor (
             .addTo(disposables)
     }
 
+    fun searchGitUser(username: String) {
+        repository.searchGitUsers(username)
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
+            .subscribeBy(
+                onSuccess = {
+                    _state.onNext(
+                        MainState.SetData(it)
+                    )
+                },
+                onError = {
+                    _state.onNext(
+                        MainState.Error(it)
+                    )
+                }
+            )
+            .addTo(disposables)
+    }
+
 }

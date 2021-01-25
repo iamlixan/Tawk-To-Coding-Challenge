@@ -42,7 +42,6 @@ class GitUserLocalRepositoryImpl @Inject constructor(
                 )
             )
             .map {
-                Timber.d(it.toString())
                 DBGitUser.toDomain(it)
             }
     }
@@ -67,6 +66,21 @@ class GitUserLocalRepositoryImpl @Inject constructor(
 
             emitter.onSuccess(gitUserList)
         }
+    }
+
+    override fun searchGitUser(username: String): Single<List<GitUser>> {
+        return database
+            .gitUserDao()
+            .searchGitUsers(username)
+            .compose(
+                OnErrorResumeNext<List<DBGitUser>, EmptyResultSetException> (
+                    emptyList(),
+                    EmptyResultSetException::class.java
+                )
+            )
+            .map {
+                DBGitUser.mapListToDomain(it)
+            }
     }
 
 }

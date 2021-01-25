@@ -122,7 +122,11 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             .observeOn(schedulers.ui())
             .subscribeBy(
                 onNext = {
-                    Toast.makeText(this, "ENTERED: $it", Toast.LENGTH_SHORT).show()
+                    if(it.toString().isNotBlank()) {
+                        viewModel.searchGitUser(it.toString())
+                    } else {
+                        viewModel.getLocalGitUsers()
+                    }
                 },
                 onError = {
                     Timber.e(it)
