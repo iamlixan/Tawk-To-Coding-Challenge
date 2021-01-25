@@ -93,6 +93,7 @@ class MainViewModel @Inject constructor (
                         _state.onNext(
                             MainState.Error("${resourceManager.getString(R.string.error_general_error)} ${it.error().errorMessage}")
                         )
+                        getLocalGitUsers()
                     }
                 }
             )

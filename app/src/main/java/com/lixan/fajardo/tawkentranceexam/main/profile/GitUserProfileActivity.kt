@@ -79,10 +79,10 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
             }
             is GitUserProfileState.ShowLoadingLayout -> {
                 binding.loadingLayout.visibility = View.VISIBLE
-                binding.nsvParent.gone()
+                binding.nsvParent.visibility = View.GONE
             }
             is GitUserProfileState.HideLoadingLayout -> {
-                binding.nsvParent.setVisible(true)
+                binding.nsvParent.visibility = View.VISIBLE
                 binding.loadingLayout.visibility = View.GONE
             }
             is GitUserProfileState.Error -> {
