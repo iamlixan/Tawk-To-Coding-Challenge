@@ -5,15 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.lixan.fajardo.tawkentranceexam.R
-import androidx.core.util.Pair
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.databinding.ActivityUserProfileBinding
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModelActivity
 import com.lixan.fajardo.tawkentranceexam.ext.gone
 import com.lixan.fajardo.tawkentranceexam.ext.loadUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.ninjaTap
+import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
@@ -75,6 +76,14 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
         when(state) {
             is GitUserProfileState.Success -> {
                 applyDataToViews(state.gitUserProfile)
+            }
+            is GitUserProfileState.ShowLoadingLayout -> {
+                binding.loadingLayout.visibility = View.VISIBLE
+                binding.nsvParent.gone()
+            }
+            is GitUserProfileState.HideLoadingLayout -> {
+                binding.nsvParent.setVisible(true)
+                binding.loadingLayout.visibility = View.GONE
             }
             is GitUserProfileState.Error -> {
                 showErrorSnackbar(state.errorMessage)

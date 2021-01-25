@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftVerticalGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/midVerticalGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar1"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar1"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar1"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar1"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar2"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar1"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar2"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar2"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar2"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar3"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar2"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar3"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar3"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar3"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar4"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar3"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName4"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar4"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar4"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar4"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar5"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar4"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName5"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar5"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar5"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar5"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar6"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar5"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName6"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar6"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar6"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar6"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar7"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar6"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName7"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar7"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar7"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar7"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar8"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar7"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName8"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar8"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar8"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar8"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar9"
+                android:layout_width="@dimen/_80dp"
+                android:layout_height="@dimen/_80dp"
+                android:src="@color/gray_chateau"
+                android:layout_marginTop="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingBottom="@dimen/_8dp"
+                app:civ_circle_background_color="@color/geyser"
+                app:civ_border_color="@color/geyser"
+                app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                app:layout_constraintTop_toBottomOf="@id/ivAvatar8"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/tvUserName9"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_16dp"
+                android:background="@color/gray_chateau"
+                android:layout_marginStart="@dimen/_16dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAvatar9"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar9"
+                app:layout_constraintTop_toTopOf="@id/ivAvatar9"
+                app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

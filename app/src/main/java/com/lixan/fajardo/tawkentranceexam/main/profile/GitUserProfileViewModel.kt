@@ -33,6 +33,21 @@ class GitUserProfileViewModel @Inject constructor(
         repository.getUserProfileFromAPI(username)
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
+            .doOnSubscribe {
+                _state.onNext(
+                    GitUserProfileState.ShowLoadingLayout
+                )
+            }
+            .doOnSuccess {
+                _state.onNext(
+                    GitUserProfileState.HideLoadingLayout
+                )
+            }
+            .doOnError {
+                _state.onNext(
+                    GitUserProfileState.HideLoadingLayout
+                )
+            }
             .subscribeBy(
                 onSuccess = {
                     if (it.isSuccess) {
@@ -66,6 +81,21 @@ class GitUserProfileViewModel @Inject constructor(
         repository.getLocalGitUserProfile(username)
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
+            .doOnSubscribe {
+                _state.onNext(
+                    GitUserProfileState.ShowLoadingLayout
+                )
+            }
+            .doAfterSuccess {
+                _state.onNext(
+                    GitUserProfileState.HideLoadingLayout
+                )
+            }
+            .doOnError {
+                _state.onNext(
+                    GitUserProfileState.HideLoadingLayout
+                )
+            }
             .subscribeBy(
                 onSuccess = {
                     _state.onNext(

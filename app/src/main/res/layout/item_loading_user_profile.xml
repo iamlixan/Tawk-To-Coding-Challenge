@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               >
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/leftVerticalGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/rightVerticalGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".95" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/midVerticalGuideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".5" />
+
+
+                <ImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="@dimen/_172dp"
+                    android:layout_height="@dimen/_172dp"
+                    android:layout_margin="@dimen/_16dp"
+                    android:background="@color/gray_chateau"
+                    android:transitionName="avatarTransition"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageView
+                    android:id="@+id/tvFollowers"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_margin="@dimen/_16dp"
+                    android:background="@color/gray_chateau"
+                    app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                    app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline" />
+
+                <ImageView
+                    android:id="@+id/tvFollowing"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_margin="@dimen/_16dp"
+                    android:background="@color/gray_chateau"
+                    app:layout_constraintStart_toEndOf="@id/midVerticalGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                    app:layout_constraintEnd_toStartOf="@id/rightVerticalGuideline" />
+
+                <View
+                    android:id="@+id/clInfoParent"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_200dp"
+                    android:background="@color/gray_chateau"
+                    android:elevation="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:paddingTop="@dimen/_16dp"
+                    android:paddingBottom="@dimen/_16dp"
+                    app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/tvFollowers"
+                    app:layout_constraintEnd_toStartOf="@id/rightVerticalGuideline" />
+
+                <ImageView
+                    android:id="@+id/tvNotes"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_marginTop="@dimen/_24dp"
+                    android:layout_marginEnd="@dimen/_16dp"
+                    android:background="@color/gray_chateau"
+                    app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/clInfoParent"
+                    app:layout_constraintEnd_toStartOf="@id/midVerticalGuideline" />
+
+                <ImageView
+                    android:id="@+id/etNotes"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_104dp"
+                    android:padding="@dimen/_16dp"
+                    android:background="@color/gray_chateau"
+                    android:layout_marginTop="@dimen/_8dp"
+                    app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/tvNotes"
+                    app:layout_constraintEnd_toStartOf="@id/rightVerticalGuideline"/>
+
+                <ImageView
+                    android:id="@+id/btnSave"
+                    android:layout_width="@dimen/_104dp"
+                    android:layout_height="@dimen/_56dp"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:layout_marginBottom="@dimen/_16dp"
+                    android:background="@color/gray_chateau"
+                    android:elevation="@dimen/_8dp"
+                    app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"
+                    app:layout_constraintTop_toBottomOf="@id/etNotes"
+                    app:layout_constraintEnd_toStartOf="@id/rightVerticalGuideline"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

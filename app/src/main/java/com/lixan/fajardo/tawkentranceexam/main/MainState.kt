@@ -18,6 +18,6 @@ sealed class MainState {
 
     data class NoInternetError(val message: String): MainState()
 
-    data class Error(val message: Throwable) : MainState()
+    data class Error(val message: String) : MainState()
 
 }

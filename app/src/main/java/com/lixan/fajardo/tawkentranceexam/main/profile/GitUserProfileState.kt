@@ -7,4 +7,8 @@ sealed class GitUserProfileState {
     data class Success(val gitUserProfile: GitUser): GitUserProfileState()
 
     data class Error(val errorMessage: String): GitUserProfileState()
+
+    object ShowLoadingLayout: GitUserProfileState()
+
+    object HideLoadingLayout: GitUserProfileState()
 }

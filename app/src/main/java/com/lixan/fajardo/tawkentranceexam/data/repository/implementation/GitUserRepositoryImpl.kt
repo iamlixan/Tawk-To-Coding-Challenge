@@ -78,6 +78,11 @@ class GitUserRepositoryImpl @Inject constructor(
                     )
                 }
             }
+            .onErrorReturn {
+                RequestResult.error(
+                    ErrorHandler.handleError(it)
+                )
+            }
     }
 
     private fun saveGitUsersInfo(gitUserList: List<GitUser>): Observable<List<GitUser>> {

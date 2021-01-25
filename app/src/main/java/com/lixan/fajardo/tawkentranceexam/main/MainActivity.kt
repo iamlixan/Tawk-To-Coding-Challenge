@@ -12,6 +12,7 @@ import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.databinding.ActivityMainBinding
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModelActivity
+import com.lixan.fajardo.tawkentranceexam.ext.gone
 import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import com.lixan.fajardo.tawkentranceexam.main.adapter.GitUsersListAdapter
 import com.lixan.fajardo.tawkentranceexam.main.adapter.GitUsersListListener
@@ -166,10 +167,12 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 adapter.addData(state.gitUsers)
             }
             is MainState.ShowProgressLoading -> {
-                binding.progressLayout.setVisible(true)
+                binding.rvUserList.gone()
+                binding.progressLayout.visibility = View.VISIBLE
             }
             is MainState.HideProgressLoading -> {
-                binding.progressLayout.setVisible(false)
+                binding.progressLayout.visibility = View.GONE
+                binding.rvUserList.setVisible(true)
             }
             is MainState.RemoteEmpty -> {
                 Toast.makeText(this, "REMOTE EMPTY", Toast.LENGTH_SHORT).show()
@@ -181,7 +184,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 showErrorSnackbar(state.message)
             }
             is MainState.Error -> {
-                Timber.e("ERROR! : ${state.message}")
+                showErrorSnackbar(state.message)
             }
         }
     }

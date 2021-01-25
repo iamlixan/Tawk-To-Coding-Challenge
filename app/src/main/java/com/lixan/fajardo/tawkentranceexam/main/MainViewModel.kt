@@ -9,6 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
+import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -88,8 +89,9 @@ class MainViewModel @Inject constructor (
                             MainState.NoInternetError(resourceManager.getString(R.string.error_no_internet))
                         )
                     } else {
+                        Timber.e("ERROR! : ${it.error().errorMessage}")
                         _state.onNext(
-                            MainState.Error(it.error().cause ?: Throwable(it.error().errorMessage))
+                            MainState.Error("${resourceManager.getString(R.string.error_general_error)} ${it.error().errorMessage}")
                         )
                     }
                 }
@@ -130,8 +132,9 @@ class MainViewModel @Inject constructor (
                     }
                 },
                 onError = {
+                    Timber.e("ERROR! : ${it.cause}")
                     _state.onNext(
-                        MainState.Error(it)
+                        MainState.Error(resourceManager.getString(R.string.error_general_error))
                     )
                 }
             )
@@ -149,8 +152,9 @@ class MainViewModel @Inject constructor (
                     )
                 },
                 onError = {
+                    Timber.e("ERROR! : $it")
                     _state.onNext(
-                        MainState.Error(it)
+                        MainState.Error(resourceManager.getString(R.string.error_general_error))
                     )
                 }
             )
