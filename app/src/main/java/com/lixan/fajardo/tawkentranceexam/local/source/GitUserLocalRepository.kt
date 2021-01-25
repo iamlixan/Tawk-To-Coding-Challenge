@@ -7,6 +7,8 @@ interface GitUserLocalRepository {
 
     fun getGitUsers(): Single<List<GitUser>>
 
+    fun getGitUserProfile(username: String): Single<GitUser>
+
     fun saveGitUser(gitUser: GitUser): Single<GitUser>
 
     fun saveGitUserList(gitUserList: List<GitUser>): Single<List<GitUser>>

@@ -28,18 +28,18 @@ data class DBGitUser(
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "site_admin") val siteAdmin: Boolean,
     @ColumnInfo(name = "notes") val notes: String,
-    @ColumnInfo(name = "name") val name: String = "",
-    @ColumnInfo(name = "company") val company: String = "",
-    @ColumnInfo(name = "blog") val blog: String = "",
-    @ColumnInfo(name = "location") val location: String = "",
-    @ColumnInfo(name = "bio") val bio: String = "",
-    @ColumnInfo(name = "twitter_username") val twitterUsername: String = "",
-    @ColumnInfo(name = "public_repos") val publicRepos: Int = 0,
-    @ColumnInfo(name = "public_gists") val publicGists: Int = 0,
-    @ColumnInfo(name = "followers") val followers: Int = 0,
-    @ColumnInfo(name = "following") val following: Int = 0,
-    @ColumnInfo(name = "created_at") val createdAt: String = "",
-    @ColumnInfo(name = "updated_at") val updatedAt: String = ""
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "company") val company: String,
+    @ColumnInfo(name = "blog") val blog: String,
+    @ColumnInfo(name = "location") val location: String,
+    @ColumnInfo(name = "bio") val bio: String,
+    @ColumnInfo(name = "twitter_username") val twitterUsername: String,
+    @ColumnInfo(name = "public_repos") val publicRepos: Int,
+    @ColumnInfo(name = "public_gists") val publicGists: Int,
+    @ColumnInfo(name = "followers") val followers: Int,
+    @ColumnInfo(name = "following") val following: Int,
+    @ColumnInfo(name = "created_at") val createdAt: String,
+    @ColumnInfo(name = "updated_at") val updatedAt: String
 ) {
     companion object {
         const val DB_GIT_USER_TABLE_NAME = "gitusers"

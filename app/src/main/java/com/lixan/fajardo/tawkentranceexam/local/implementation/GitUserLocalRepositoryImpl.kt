@@ -27,8 +27,23 @@ class GitUserLocalRepositoryImpl @Inject constructor(
                 )
             )
             .map {
-                Timber.d("HERE SIZE LOCAL: ${it.size}")
                 DBGitUser.mapListToDomain(it)
+            }
+    }
+
+    override fun getGitUserProfile(username: String): Single<GitUser> {
+        return database
+            .gitUserDao()
+            .getGitUserProfile(username)
+            .compose(
+                OnErrorResumeNext<DBGitUser, EmptyResultSetException> (
+                    DBGitUser.empty(),
+                    EmptyResultSetException::class.java
+                )
+            )
+            .map {
+                Timber.d(it.toString())
+                DBGitUser.toDomain(it)
             }
     }
 

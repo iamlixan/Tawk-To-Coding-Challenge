@@ -15,4 +15,6 @@ interface GitUserRepository {
     fun saveGitUserList(gitUserList: List<GitUser>): Single<List<GitUser>>
 
     fun getUserProfileFromAPI(username: String): Single<RequestResult<GitUser>>
+
+    fun getLocalGitUserProfile(username: String): Single<GitUser>
 }

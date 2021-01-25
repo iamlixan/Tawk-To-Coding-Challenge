@@ -11,7 +11,9 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
+import retrofit2.HttpException
 import timber.log.Timber
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class GitUserProfileViewModel @Inject constructor(
@@ -37,11 +39,38 @@ class GitUserProfileViewModel @Inject constructor(
                         _state.onNext(
                             GitUserProfileState.Success(it.result())
                         )
+                    } else if (it.isError &&
+                        (it.error().cause is HttpException || it.error().cause is UnknownHostException)
+                    ){
+                        getLocalUserProfile(username)
                     } else {
                         _state.onNext(
                             GitUserProfileState.Error(it.error().errorMessage)
                         )
                     }
+                },
+                onError = {
+                    Timber.e(it)
+                    _state.onNext(
+                        GitUserProfileState.Error(
+                            resourceManager.getString(R.string.error_general_error
+                            )
+                        )
+                    )
+                }
+            )
+            .addTo(disposables)
+    }
+
+    private fun getLocalUserProfile(username: String) {
+        repository.getLocalGitUserProfile(username)
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
+            .subscribeBy(
+                onSuccess = {
+                    _state.onNext(
+                        GitUserProfileState.Success(it)
+                    )
                 },
                 onError = {
                     Timber.e(it)

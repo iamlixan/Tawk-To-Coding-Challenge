@@ -53,6 +53,10 @@ class GitUserRepositoryImpl @Inject constructor(
             }
     }
 
+    override fun getLocalGitUserProfile(username: String): Single<GitUser> {
+        return local.getGitUserProfile(username)
+    }
+
     override fun getUsersFromAPI(page: Int): Single<RequestResult<List<GitUser>>> {
         return remote
             .getUsers(page)
