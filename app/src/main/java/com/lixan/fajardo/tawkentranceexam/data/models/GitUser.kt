@@ -23,7 +23,6 @@ data class GitUser(
     val eventsUrl: String,
     val type: String,
     val siteAdmin: Boolean,
-    var notes: String = "",
     val name: String = "",
     val company: String = "",
     val blog: String = "",
@@ -35,7 +34,8 @@ data class GitUser(
     val followers: Int = 0,
     val following: Int = 0,
     val createdAt: String = "",
-    val updatedAt: String = ""
+    val updatedAt: String = "",
+    var hasNotes: Boolean = false
 ): Parcelable {
     companion object {
         fun empty(): GitUser {
@@ -63,13 +63,13 @@ data class GitUser(
                 "",
                 "",
                 "",
-                "",
                 0,
                 0,
                 0,
                 0,
                 "",
-                ""
+                "",
+                false
             )
         }
     }

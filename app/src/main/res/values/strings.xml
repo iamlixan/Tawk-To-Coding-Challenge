@@ -17,6 +17,7 @@
 
 
     <string name="message_internet_connected">Internet Connected.</string>
+    <string name="message_save_note_success">Note saved successfully.</string>
     <string name="error_no_internet">No Internet connection. Make sure that Wi-Fi or mobile data is turned on, then try again.</string>
     <string name="error_internet_disconnected">Internet Disconnected. Some features may not be available.</string>
     <string name="error_general_error">Oops! Something went wrong.</string>

@@ -1,9 +1,9 @@
 package com.lixan.fajardo.tawkentranceexam.main.profile
 
 import android.os.Bundle
-import android.view.View
-import androidx.databinding.Bindable
 import com.lixan.fajardo.tawkentranceexam.R
+import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
+import com.lixan.fajardo.tawkentranceexam.data.models.GitUserNote
 import com.lixan.fajardo.tawkentranceexam.data.repository.source.GitUserRepository
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModel
 import com.lixan.fajardo.tawkentranceexam.utils.ResourceManager
@@ -22,6 +22,8 @@ class GitUserProfileViewModel @Inject constructor(
 ): BaseViewModel() {
 
     override fun isFirstTimeUICreated(bundle: Bundle?) = Unit
+
+    var gitUserProfile: GitUser = GitUser.empty()
 
     private val _state by lazy {
         PublishSubject.create<GitUserProfileState>()
@@ -51,9 +53,14 @@ class GitUserProfileViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = {
                     if (it.isSuccess) {
-                        _state.onNext(
-                            GitUserProfileState.Success(it.result())
-                        )
+                        if (it.result().first != null) {
+                            it.result().first?.let { gitUser ->
+                                gitUserProfile = gitUser
+                            }
+                            _state.onNext(
+                                GitUserProfileState.Success(it.result())
+                            )
+                        }
                     } else if (it.isError &&
                         (it.error().cause is HttpException || it.error().cause is UnknownHostException)
                     ){
@@ -98,6 +105,9 @@ class GitUserProfileViewModel @Inject constructor(
             }
             .subscribeBy(
                 onSuccess = {
+                    it.first?.let { gitUser ->
+                        gitUserProfile = gitUser
+                    }
                     _state.onNext(
                         GitUserProfileState.Success(it)
                     )
@@ -108,6 +118,33 @@ class GitUserProfileViewModel @Inject constructor(
                         GitUserProfileState.Error(
                             resourceManager.getString(R.string.error_general_error
                             )
+                        )
+                    )
+                }
+            )
+            .addTo(disposables)
+    }
+
+    fun saveGitUserNote(id: Int, note: String) {
+        val gitUserNote = GitUserNote(id, note)
+        repository.saveGitUserNote(gitUserNote)
+            .flatMap {
+                gitUserProfile.hasNotes = note.isNotBlank()
+                repository.saveGitUser(gitUserProfile)
+            }
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
+            .subscribeBy(
+                onSuccess = {
+                    _state.onNext(
+                        GitUserProfileState.SaveNoteSuccess
+                    )
+                },
+                onError = {
+                    Timber.e(it)
+                    _state.onNext(
+                        GitUserProfileState.Error(
+                            resourceManager.getString(R.string.error_general_error)
                         )
                     )
                 }

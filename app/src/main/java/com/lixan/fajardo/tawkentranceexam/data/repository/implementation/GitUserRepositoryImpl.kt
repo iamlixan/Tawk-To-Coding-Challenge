@@ -1,20 +1,18 @@
 package com.lixan.fajardo.tawkentranceexam.data.repository.implementation
 
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
+import com.lixan.fajardo.tawkentranceexam.data.models.GitUserNote
 import com.lixan.fajardo.tawkentranceexam.data.repository.source.GitUserRepository
 import com.lixan.fajardo.tawkentranceexam.local.source.GitUserLocalRepository
 import com.lixan.fajardo.tawkentranceexam.network.remoterepository.source.GitUserRemoteRepository
 import com.lixan.fajardo.tawkentranceexam.network.response.ErrorHandler
 import com.lixan.fajardo.tawkentranceexam.network.response.RequestResult
-import com.lixan.fajardo.tawkentranceexam.network.response.ResultError
 import com.lixan.fajardo.tawkentranceexam.utils.KEY_GIT_USER_DATA
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import timber.log.Timber
-import java.net.UnknownHostException
 import javax.inject.Inject
-
+import androidx.core.util.Pair
 
 class GitUserRepositoryImpl @Inject constructor(
     private val remote: GitUserRemoteRepository,
@@ -33,12 +31,19 @@ class GitUserRepositoryImpl @Inject constructor(
         return local.saveGitUserList(gitUserList)
     }
 
-    override fun getUserProfileFromAPI(username: String): Single<RequestResult<GitUser>> {
+    override fun getUserProfileFromAPI(username: String): Single<RequestResult<Pair<GitUser, GitUserNote>>> {
         return remote.getUserProfile(username)
             .flatMap { result ->
                 if (result.isSuccess) {
-                    saveGitUser(result.result()).map { gitUser ->
-                        RequestResult.success(gitUser)
+                    saveGitUser(
+                        result.result()
+                    ).flatMap { gitUser ->
+                        getGitUserNote (
+                            gitUser.id
+                        ).map { gitUserNote ->
+                            val pair = Pair.create(gitUser, gitUserNote)
+                            RequestResult.success(pair)
+                        }
                     }
                 } else {
                     Single.just(
@@ -53,12 +58,24 @@ class GitUserRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getLocalGitUserProfile(username: String): Single<GitUser> {
-        return local.getGitUserProfile(username)
+    override fun getLocalGitUserProfile(username: String): Single<Pair<GitUser, GitUserNote>> {
+        return local.getGitUserProfile(username).flatMap { gitUser ->
+            local.getGitUserNote(gitUser.id).map { gitUserNote ->
+                Pair.create(gitUser, gitUserNote)
+            }
+        }
     }
 
     override fun searchGitUsers(username: String): Single<List<GitUser>> {
         return local.searchGitUser(username)
+    }
+
+    override fun saveGitUserNote(gitUserNote: GitUserNote): Single<GitUserNote> {
+        return local.saveGitUserNote(gitUserNote)
+    }
+
+    override fun getGitUserNote(id: Int): Single<GitUserNote> {
+        return local.getGitUserNote(id)
     }
 
     override fun getUsersFromAPI(page: Int): Single<RequestResult<List<GitUser>>> {
@@ -70,7 +87,7 @@ class GitUserRepositoryImpl @Inject constructor(
                     saveGitUsersInfo(gitUserList)
                         .singleOrError()
                         .map {
-                            RequestResult.success(gitUserList)
+                            RequestResult.success(it)
                         }
                 } else {
                     Single.just(
@@ -83,6 +100,10 @@ class GitUserRepositoryImpl @Inject constructor(
                     ErrorHandler.handleError(it)
                 )
             }
+    }
+
+    override fun getUserNotes(): Single<List<GitUserNote>> {
+        return local.getGitUsersNotes()
     }
 
     private fun saveGitUsersInfo(gitUserList: List<GitUser>): Observable<List<GitUser>> {

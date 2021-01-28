@@ -3,13 +3,16 @@ package com.lixan.fajardo.tawkentranceexam.local.database
 import android.content.Context
 import androidx.room.*
 import com.lixan.fajardo.tawkentranceexam.local.GitUserDBTypeConverter
-import com.lixan.fajardo.tawkentranceexam.local.base.dao.GitUserDao
+import com.lixan.fajardo.tawkentranceexam.local.dao.GitUserDao
+import com.lixan.fajardo.tawkentranceexam.local.dao.GitUserNoteDao
 import com.lixan.fajardo.tawkentranceexam.local.models.DBGitUser
+import com.lixan.fajardo.tawkentranceexam.local.models.DBGitUserNote
 
 
 @Database(
     entities = [
-    DBGitUser::class
+    DBGitUser::class,
+    DBGitUserNote::class
     ],
     version = 1,
     exportSchema = true
@@ -18,6 +21,8 @@ import com.lixan.fajardo.tawkentranceexam.local.models.DBGitUser
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun gitUserDao(): GitUserDao
+
+    abstract fun gitUserNotesDao(): GitUserNoteDao
 
     companion object {
         @Volatile

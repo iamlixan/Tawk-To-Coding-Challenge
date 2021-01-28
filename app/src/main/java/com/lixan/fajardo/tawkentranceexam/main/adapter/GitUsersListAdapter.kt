@@ -1,6 +1,7 @@
 package com.lixan.fajardo.tawkentranceexam.main.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -94,8 +95,8 @@ class GitUsersListAdapter constructor(
                 )
             }.addTo(disposables)
 
-            if(gitUser.notes.isNotBlank()) {
-                binding.ivNoteIndicator.setVisible(true)
+            if(gitUser.hasNotes) {
+                binding.ivNoteIndicator.visibility = View.VISIBLE
             }
             binding.executePendingBindings()
         }

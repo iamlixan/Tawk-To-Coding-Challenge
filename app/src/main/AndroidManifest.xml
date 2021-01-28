@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.profile.GitUserProfileActivity" />
+        <activity android:name=".main.profile.GitUserProfileActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
 
         <service
             android:exported="false"

@@ -27,7 +27,6 @@ data class DBGitUser(
     @ColumnInfo(name = "events_url") val eventsUrl: String,
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "site_admin") val siteAdmin: Boolean,
-    @ColumnInfo(name = "notes") val notes: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "company") val company: String,
     @ColumnInfo(name = "blog") val blog: String,
@@ -39,7 +38,8 @@ data class DBGitUser(
     @ColumnInfo(name = "followers") val followers: Int,
     @ColumnInfo(name = "following") val following: Int,
     @ColumnInfo(name = "created_at") val createdAt: String,
-    @ColumnInfo(name = "updated_at") val updatedAt: String
+    @ColumnInfo(name = "updated_at") val updatedAt: String,
+    @ColumnInfo(name = "has_notes") val hasNotes: Boolean
 ) {
     companion object {
         const val DB_GIT_USER_TABLE_NAME = "gitusers"
@@ -69,13 +69,13 @@ data class DBGitUser(
                 "",
                 "",
                 "",
-                "",
                 0,
                 0,
                 0,
                 0,
                 "",
-                ""
+                "",
+                false
             )
         }
 
@@ -99,7 +99,6 @@ data class DBGitUser(
                     eventsUrl = eventsUrl,
                     type = type,
                     siteAdmin = siteAdmin,
-                    notes = notes,
                     name = name,
                     company = company,
                     blog = blog,
@@ -111,7 +110,8 @@ data class DBGitUser(
                     followers = followers,
                     following = following,
                     createdAt = createdAt,
-                    updatedAt = updatedAt
+                    updatedAt = updatedAt,
+                    hasNotes = hasNotes
                 )
             }
         }
@@ -152,7 +152,6 @@ data class DBGitUser(
                     eventsUrl = eventsUrl,
                     type = type,
                     siteAdmin = siteAdmin,
-                    notes = notes,
                     name = name,
                     company = company,
                     blog = blog,
@@ -164,7 +163,8 @@ data class DBGitUser(
                     followers = followers,
                     following = following,
                     createdAt = createdAt,
-                    updatedAt = updatedAt
+                    updatedAt = updatedAt,
+                    hasNotes = hasNotes
                 )
             }
         }

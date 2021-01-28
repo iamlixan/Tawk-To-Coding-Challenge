@@ -9,12 +9,12 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import com.lixan.fajardo.tawkentranceexam.R
 import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
+import com.lixan.fajardo.tawkentranceexam.data.models.GitUserNote
 import com.lixan.fajardo.tawkentranceexam.databinding.ActivityUserProfileBinding
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModelActivity
 import com.lixan.fajardo.tawkentranceexam.ext.gone
 import com.lixan.fajardo.tawkentranceexam.ext.loadUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.ninjaTap
-import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
@@ -54,6 +54,13 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
         binding.btnBack.ninjaTap {
             onBackPressed()
         }.addTo(disposables)
+
+        binding.btnSave.ninjaTap {
+            viewModel.saveGitUserNote(
+                viewModel.gitUserProfile.id,
+                binding.etNotes.text.toString()
+            )
+        }.addTo(disposables)
     }
 
     private fun setupVMObserver() {
@@ -77,6 +84,11 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
             is GitUserProfileState.Success -> {
                 applyDataToViews(state.gitUserProfile)
             }
+            is GitUserProfileState.SaveNoteSuccess -> {
+                showSuccessSnackbar(
+                    getString(R.string.message_save_note_success)
+                )
+            }
             is GitUserProfileState.ShowLoadingLayout -> {
                 binding.loadingLayout.visibility = View.VISIBLE
                 binding.nsvParent.visibility = View.GONE
@@ -91,31 +103,35 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
         }
     }
 
-    private fun applyDataToViews(gitUser: GitUser) {
-        binding.gitUserProfile = gitUser
-        binding.ivAvatar.loadUserAvatar(gitUser.avatarUrl)
+    private fun applyDataToViews(gitUser: Pair<GitUser, GitUserNote>) {
+        binding.gitUserProfile = gitUser.first
+        binding.gitUserNote = gitUser.second
+        gitUser.first?.let {
+            binding.ivAvatar.loadUserAvatar(it.avatarUrl)
+        }
 
-        if (gitUser.name.isBlank()) {
+
+        if (gitUser.first?.name.isNullOrBlank()) {
             binding.tvName.gone()
         }
 
-        if (gitUser.company.isBlank()) {
+        if (gitUser.first?.company.isNullOrBlank()) {
             binding.tvCompany.gone()
         }
 
-        if (gitUser.blog.isBlank()) {
+        if (gitUser.first?.blog.isNullOrBlank()) {
             binding.tvBlog.gone()
         }
 
-        if (gitUser.location.isBlank()) {
+        if (gitUser.first?.location.isNullOrBlank()) {
             binding.tvLocation.gone()
         }
 
-        if (gitUser.bio.isBlank()) {
+        if (gitUser.first?.bio.isNullOrBlank()) {
             binding.tvBio.gone()
         }
 
-        if (gitUser.twitterUsername.isBlank()) {
+        if (gitUser.first?.twitterUsername.isNullOrBlank()) {
             binding.tvTwitterUsername.gone()
         }
 

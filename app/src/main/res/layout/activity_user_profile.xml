@@ -7,6 +7,10 @@
         <variable
             name="gitUserProfile"
             type="com.lixan.fajardo.tawkentranceexam.data.models.GitUser" />
+
+        <variable
+            name="gitUserNote"
+            type="com.lixan.fajardo.tawkentranceexam.data.models.GitUserNote" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -274,7 +278,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_16dp"
-                    android:text="@{gitUserProfile.notes}"
+                    android:text="@{gitUserNote.note}"
                     android:background="@drawable/view_rectangle_background_16"
                     android:hint="@string/enter_notes_here"
                     app:layout_constraintStart_toEndOf="@id/leftVerticalGuideline"

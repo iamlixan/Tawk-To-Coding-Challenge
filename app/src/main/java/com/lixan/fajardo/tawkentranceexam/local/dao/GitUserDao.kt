@@ -1,4 +1,4 @@
-package com.lixan.fajardo.tawkentranceexam.local.base.dao
+package com.lixan.fajardo.tawkentranceexam.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
