@@ -82,7 +82,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
         merlin.registerConnectable {
             if (showInternetConnectedStatus) {
                 showSuccessSnackbar(getString(R.string.message_internet_connected))
-                viewModel.getGitUsers(true)
+                viewModel.getLocalGitUsers(true)
             }
         }
 
@@ -196,11 +196,9 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
     override fun onItemClicked(
         position: Int,
-        gitUser: GitUser,
-        avatarView: View,
-        usernameView: View
+        gitUser: GitUser
     ) {
-        GitUserProfileActivity.openActivity(this, gitUser.loginName, avatarView, usernameView)
+        GitUserProfileActivity.openActivity(this, gitUser.loginName)
     }
 
     companion object {

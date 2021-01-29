@@ -15,6 +15,7 @@ import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModelActivity
 import com.lixan.fajardo.tawkentranceexam.ext.gone
 import com.lixan.fajardo.tawkentranceexam.ext.loadUserAvatar
 import com.lixan.fajardo.tawkentranceexam.ext.ninjaTap
+import com.lixan.fajardo.tawkentranceexam.ext.setVisible
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
@@ -27,15 +28,11 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
 
     companion object {
         private const val KEY_USERNAME = "KEY_USERNAME"
-        fun openActivity(context: Context, username: String, avatarView: View, usernameView: View) {
+        fun openActivity(context: Context, username: String) {
             val intent = Intent(context, GitUserProfileActivity::class.java)
             intent.putExtra(KEY_USERNAME, username)
 
-            val p1 = Pair.create(avatarView, "avatarTransition")
-            val p2 = Pair.create(usernameView, "usernameTransition")
-
-            val activityCompatOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, p1, p2)
-            context.startActivity(intent, activityCompatOptions.toBundle())
+            context.startActivity(intent)
         }
     }
 
@@ -88,6 +85,10 @@ class GitUserProfileActivity: BaseViewModelActivity<ActivityUserProfileBinding, 
                 showSuccessSnackbar(
                     getString(R.string.message_save_note_success)
                 )
+            }
+            is GitUserProfileState.ProfileEmpty -> {
+                binding.clProfileParent.visibility = View.INVISIBLE
+                showErrorSnackbar(getString(R.string.error_no_internet))
             }
             is GitUserProfileState.ShowLoadingLayout -> {
                 binding.loadingLayout.visibility = View.VISIBLE

@@ -94,9 +94,7 @@ class GitUsersListAdapter constructor(
             binding.clParent.ninjaTap {
                 listener.onItemClicked (
                     position,
-                    gitUser,
-                    binding.ivAvatar,
-                    binding.tvUserName
+                    gitUser
                 )
             }.addTo(disposables)
 

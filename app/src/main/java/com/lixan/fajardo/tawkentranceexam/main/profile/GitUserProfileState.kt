@@ -15,4 +15,6 @@ sealed class GitUserProfileState {
     object ShowLoadingLayout: GitUserProfileState()
 
     object HideLoadingLayout: GitUserProfileState()
+
+    object ProfileEmpty: GitUserProfileState()
 }

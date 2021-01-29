@@ -108,9 +108,16 @@ class GitUserProfileViewModel @Inject constructor(
                     it.first?.let { gitUser ->
                         gitUserProfile = gitUser
                     }
-                    _state.onNext(
-                        GitUserProfileState.Success(it)
-                    )
+
+                    if (checkProfileIfEmpty(gitUserProfile)) {
+                        _state.onNext(
+                            GitUserProfileState.ProfileEmpty
+                        )
+                    } else {
+                        _state.onNext(
+                            GitUserProfileState.Success(it)
+                        )
+                    }
                 },
                 onError = {
                     Timber.e(it)
@@ -123,6 +130,19 @@ class GitUserProfileViewModel @Inject constructor(
                 }
             )
             .addTo(disposables)
+    }
+
+    fun checkProfileIfEmpty(gitUserProfile: GitUser): Boolean {
+        return gitUserProfile.name.isBlank() &&
+                gitUserProfile.company.isBlank() &&
+                gitUserProfile.blog.isBlank() &&
+                gitUserProfile.location.isBlank() &&
+                gitUserProfile.bio.isBlank() &&
+                gitUserProfile.twitterUsername.isBlank() &&
+                gitUserProfile.followers == 0 &&
+                gitUserProfile.following == 0 &&
+                gitUserProfile.publicGists == 0 &&
+                gitUserProfile.publicRepos == 0
     }
 
     fun saveGitUserNote(id: Int, note: String) {
