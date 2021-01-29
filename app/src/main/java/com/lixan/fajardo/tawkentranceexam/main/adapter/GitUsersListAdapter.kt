@@ -32,6 +32,10 @@ class GitUsersListAdapter constructor(
         return this.gitUsersList.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         return holder.bind(gitUsersList[position], position)
     }
@@ -78,6 +82,7 @@ class GitUsersListAdapter constructor(
 
         fun bind(gitUser: GitUser, position: Int) {
             binding.gitUser = gitUser
+            binding.ivNoteIndicator.visibility = View.GONE
 
             //position + 1 to get the exact item number from list.
             if ((position + 1) % 4 == 0 && position > 0) {

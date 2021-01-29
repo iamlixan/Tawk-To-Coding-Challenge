@@ -1,5 +1,6 @@
 package com.lixan.fajardo.tawkentranceexam.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -79,10 +80,14 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
             .build(this)
 
         merlin.registerConnectable {
-            viewModel.getGitUsers(true)
+            if (showInternetConnectedStatus) {
+                showSuccessSnackbar(getString(R.string.message_internet_connected))
+                viewModel.getGitUsers(true)
+            }
         }
 
         merlin.registerDisconnectable {
+            showInternetConnectedStatus = true
             showErrorSnackbar(getString(R.string.error_internet_disconnected))
         }
     }
@@ -108,6 +113,11 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
         adapter.setData(gitUserList)
         binding.rvUserList.layoutManager?.onRestoreInstanceState(rvState)
+    }
+
+    override fun onRestart() {
+        viewModel.getLocalGitUsers()
+        super.onRestart()
     }
 
     private fun setupView() {
@@ -173,7 +183,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
                 Toast.makeText(this, "REMOTE EMPTY", Toast.LENGTH_SHORT).show()
             }
             is MainState.LocalEmpty -> {
-                Toast.makeText(this, "LOCAL EMPTY", Toast.LENGTH_SHORT).show()
+                viewModel.getGitUsers(true)
             }
             is MainState.NoInternetError -> {
                 showErrorSnackbar(state.message)

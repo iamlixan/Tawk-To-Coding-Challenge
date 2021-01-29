@@ -2,6 +2,7 @@ package com.lixan.fajardo.tawkentranceexam.main
 
 import android.os.Bundle
 import com.lixan.fajardo.tawkentranceexam.R
+import com.lixan.fajardo.tawkentranceexam.data.models.GitUser
 import com.lixan.fajardo.tawkentranceexam.data.repository.source.GitUserRepository
 import com.lixan.fajardo.tawkentranceexam.di.base.BaseViewModel
 import com.lixan.fajardo.tawkentranceexam.utils.ResourceManager
@@ -18,7 +19,7 @@ class MainViewModel @Inject constructor (
     private val resourceManager: ResourceManager
 ): BaseViewModel() {
 
-    override fun isFirstTimeUICreated(bundle: Bundle?) = getGitUsers()
+    override fun isFirstTimeUICreated(bundle: Bundle?) = getLocalGitUsers()
 
     private val _state by lazy {
         PublishSubject.create<MainState>()
@@ -71,12 +72,10 @@ class MainViewModel @Inject constructor (
                             _state.onNext(
                                 MainState.RemoteEmpty
                             )
-                        } else {
+                        }  else {
                             lastIDSearched = it.result()[it.result().lastIndex].id
                             if (isRefresh) {
-                                _state.onNext(
-                                    MainState.SetData(it.result())
-                                )
+                                getLocalGitUsers(isRefresh)
                             } else {
                                 _state.onNext(
                                     MainState.AddData(it.result())
@@ -84,7 +83,6 @@ class MainViewModel @Inject constructor (
                             }
                         }
                     } else if(it.isError && it.error().cause is UnknownHostException){
-                        getLocalGitUsers()
                         _state.onNext(
                             MainState.NoInternetError(resourceManager.getString(R.string.error_no_internet))
                         )
@@ -100,7 +98,7 @@ class MainViewModel @Inject constructor (
             .addTo(disposables)
     }
 
-    fun getLocalGitUsers() {
+    fun getLocalGitUsers(isRefresh: Boolean = true) {
         repository.getLocalGitUsers()
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
@@ -127,9 +125,15 @@ class MainViewModel @Inject constructor (
                         )
                     } else {
                         lastIDSearched = it[it.lastIndex].id
-                        _state.onNext(
-                            MainState.SetData(it)
-                        )
+                        if (isRefresh) {
+                            _state.onNext(
+                                MainState.SetData(it)
+                            )
+                        } else {
+                            _state.onNext(
+                                MainState.AddData(it)
+                            )
+                        }
                     }
                 },
                 onError = {
